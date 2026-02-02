@@ -1,0 +1,29 @@
+Minutes of Meeting
+
+Meeting-1: January 19th (with TA)
+
+In the first meeting we started by introducing ourselves to our mentor. He gave us information about what this project expects from us. Then he told us about what exactly the ITS domain is about. 
+ - Genetic Algorithm
+ - Traffic Congestion
+ - Modelling our project
+ - Simulation
+
+Meeting-2: January 25th
+
+This was our first casual meeting. After our first meeting we decided that everyone will read atleast one research paper and so we first discussed everyone's ideas and tried finding a problem statement. We discussed few problem statments.
+ - An Edge Assisted Robust Smart Traffic Management and signalling system for guiding emergency vehicles during peak hours
+ - Conventional toll collection systems rely on manual or semi-automated operations, resulting in traffic congestion, increased vehicle idle time, fuel wastage, and limited throughput at toll plazas. These systems lack real-time vehicle identification, automated transaction processing, and centralized data analytics, making them inefficient for high-density traffic conditions.
+
+An Intelligent Transport System (ITS)-based toll tax system is required to integrate RFID-based vehicle identification, sensor networks, automated payment gateways, and backend data management to enable fast, contactless toll collection. The system aims to minimize latency, improve toll plaza capacity, enhance revenue accuracy, and support real-time monitoring and traffic management through intelligent data processing.
+
+ - To minimize the probability of network-wide congestion by distributing traffic across alternative routes under uncertain demand and link capacity.
+ - To maximize the probability of arriving at a destination before a specified deadline by selecting routes under stochastic and time-dependent travel times.
+
+Meeting-3: January  28th (with TA)
+
+We first asked TA about which problem should be choose. We were thinking that the toll tax idea was unique and also aligns with project requirements, but after discussing we got to know that it would be hard to implement at our level. So we discussed a bit and finalised our problem statement 
+ - To maximize the probability of arriving at a destination before a specified deadline by selecting routes under stochastic and time-dependent travel times.
+
+Meeting-4: January 31st
+
+We had started working on our assigned works but we had many questions as we were not exactly clear on what to submit. So we decided what to ask our mentor and what other things can we do. Also we searched for a few more research papers which supports our problem statement. We found one paper which talked about :A New Formulation of the Shortest Path Problem with On-Time Arrival Reliability.
