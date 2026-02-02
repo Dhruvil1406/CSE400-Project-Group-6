@@ -1,1 +1,3 @@
-
+Intelligent Transportation Systems : The main purpose of this topic is to manage traffic load and optimise traffic flow efficient way. It includes main four applications/domains (as discussed in video) i.e. Route Optimisation, Traffic Signal Optimisation, Fleet Management and Vehicle Load Balancing. 
+Area Identification : Based on the problem discussed in video, we selected route optimisation domain but a specific problem in route optimisation. As route optimisation includes choosing the best possible route to travel from one point to another, this route will be identified specifically based on traffic congestion and vehicle capacity.
+Problem Statement : To maximize the probability of arriving at a destination before calculated time by selecting routes based on traffic congestion.
