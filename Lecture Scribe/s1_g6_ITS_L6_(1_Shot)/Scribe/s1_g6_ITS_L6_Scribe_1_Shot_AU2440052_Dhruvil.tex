@@ -1,0 +1,90 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath, amsfonts, amssymb, amsthm}
+\usepackage{graphicx}
+
+\title{CSE 400: Fundamentals of Probability in Computing \\ Lecture 6: Discrete RVs, Expectation, and Problem Solving}
+\author{Group-6 Scribe Refactoring}
+\date{February 6, 2026}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction to Random Variables}
+A \textbf{Random Variable (RV)} $X$ on a sample space $\Omega$ is defined as a function $X: \Omega \to \mathbb{R}$ that assigns a real number $X(\omega)$ to each sample point $\omega \in \Omega$[cite: 183]. 
+
+\subsection{Discrete Random Variables}
+A random variable is considered \textbf{discrete} if it can take on at most a countable number of possible values[cite: 339, 354].
+\begin{itemize}
+    \item \textbf{Support}: Countable (finite or countably infinite)[cite: 251].
+    \item \textbf{Probability Mass Function (PMF)}: Defined as $P_X(x_k) = Pr(X = x_k)$ for $k = 1, 2, 3, \dots$[cite: 356, 357].
+    \item \textbf{Constraint}: The sum of all probabilities in a PMF must equal 1: $\sum_{k=1}^{\infty} P_X(x_k) = 1$[cite: 368].
+\end{itemize}
+
+\section{Independent Events}
+Two events $A$ and $B$ are \textbf{independent} if the occurrence of one does not provide information about the likelihood of the other[cite: 572, 582].
+\begin{itemize}
+    \item \textbf{Mathematical Definition}: $Pr(A|B) = Pr(A)$ and $Pr(B|A) = Pr(B)$[cite: 583].
+    \item \textbf{Joint Probability}: For independent events, $Pr(A, B) = Pr(A)Pr(B)$[cite: 583, 594].
+    \item \textbf{Mutual Independence}: Three events $A, B,$ and $C$ are mutually independent if every pair is independent and $Pr(A, B, C) = Pr(A)Pr(B)Pr(C)$[cite: 595, 598].
+\end{itemize}
+
+\section{Derivations and Bayes' Theorem}
+\subsection{Bayes' Formula Derivation}
+Using the definition of conditional probability $Pr(AB_i) = Pr(B_i|A)Pr(A)$, we derive Bayes' Theorem[cite: 421, 424]:
+\begin{equation}
+    Pr(B_i|A) = \frac{Pr(A|B_i)Pr(B_i)}{\sum_{j=1}^{n} Pr(A|B_j)Pr(B_j)}
+\end{equation}
+Where $Pr(B_i)$ is the \textit{a priori} probability and $Pr(B_i|A)$ is the \textit{posteriori} probability[cite: 426, 427].
+
+\section{Types of Discrete Random Variables}
+
+\subsection{Bernoulli Random Variable}
+Models a single trial with two outcomes: Success (1) or Failure (0)[cite: 670, 679].
+\begin{itemize}
+    \item \textbf{PMF}: $P_X(1) = p$, $P_X(0) = 1-p$[cite: 691].
+    \item \textbf{Examples}: Tossing a coin, spam detection, or demographic classification[cite: 707, 709].
+\end{itemize}
+
+\subsection{Binomial Random Variable}
+Denoted as $B(n, p)$, it represents the number of successes in $n$ independent trials[cite: 732, 734].
+\begin{itemize}
+    \item \textbf{PMF Derivation}: $p(i) = \binom{n}{i}p^i(1-p)^{n-i}$ for $i=0, 1, \dots, n$[cite: 747].
+    \item \textbf{Usage}: Number of defective items in a sample or correct answers on a test[cite: 761, 762].
+\end{itemize}
+
+\subsection{Geometric Random Variable}
+Represents the number of trials required to achieve the \textbf{first} success in a sequence of independent trials[cite: 779, 780].
+\begin{itemize}
+    \item \textbf{PMF}: $P_X(X=n) = (1-p)^{n-1}p$[cite: 794].
+    \item \textbf{Proof of PMF Summation}:
+    \begin{equation}
+        \sum_{n=1}^{\infty} Pr(X=n) = p \sum_{n=1}^{\infty} (1-p)^{n-1} = p \left( \frac{1}{1-(1-p)} \right) = \frac{p}{p} = 1 \text{[cite: 797].}
+    \end{equation}
+\end{itemize}
+
+\subsection{Poisson Random Variable}
+Models the number of rare events occurring in a fixed interval[cite: 260].
+\begin{itemize}
+    \item \textbf{PMF}: $p(i) = e^{-\lambda} \frac{\lambda^i}{i!}$ for $i=0, 1, 2, \dots$[cite: 837, 847].
+    \item \textbf{Constraint Proof}: $\sum_{i=0}^{\infty} e^{-\lambda} \frac{\lambda^i}{i!} = e^{-\lambda} \sum_{i=0}^{\infty} \frac{\lambda^i}{i!} = e^{-\lambda} e^{\lambda} = 1$[cite: 848, 859].
+    \item \textbf{Approximation}: Can approximate $B(n, p)$ when $n$ is large and $p$ is small[cite: 860].
+\end{itemize}
+
+\section{Summary for Exam Review}
+\begin{itemize}
+    \item \textbf{RVs}: Understand mapping from Sample Space to Real Numbers[cite: 183].
+    \item \textbf{Discrete vs. Continuous}: Discrete uses PMF (summation); Continuous uses PDF (integration)[cite: 162, 163, 173, 340, 342].
+    \item \textbf{Independence}: Key requirement for Binomial and Geometric distributions[cite: 723, 770].
+    \item \textbf{Bayes' Theorem}: Crucial for updating probabilities based on observed evidence[cite: 427].
+    \item \textbf{Key Distributions}:
+    \begin{itemize}
+        \item \textbf{Bernoulli}: 1 trial, 2 outcomes[cite: 668, 670].
+        \item \textbf{Binomial}: $n$ trials, counting successes[cite: 732].
+        \item \textbf{Geometric}: Waiting for the first success[cite: 779].
+        \item \textbf{Poisson}: Rare events over time/space[cite: 260, 830].
+    \end{itemize}
+\end{itemize}
+
+\end{document}

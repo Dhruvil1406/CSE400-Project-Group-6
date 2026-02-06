@@ -1,0 +1,8 @@
+Prompt:
+
+I want to generate a latex file. The Latex file should have the following content from the pdf "L6_S1_A":
+All the definations and notations
+Any proofs and derivations in the pdf 
+and it should have a detailed summary of the pdf to make the student recall everything for any exam.
+
+I have also attached a Scribe for reference named "group_6_ITS_project_scribe(1).pdf". Your Latex file should follow the format given in this reference file. 
