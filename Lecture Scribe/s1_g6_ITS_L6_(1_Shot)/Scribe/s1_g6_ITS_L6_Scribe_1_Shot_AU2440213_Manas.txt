@@ -1,0 +1,93 @@
+Here is the LaTeX code for the scribe:
+
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+
+% --- Custom Header/Footer Style ---
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{CSE400: Fundamentals of Probability in Computing}
+\lhead{Lecture 6 Scribe}
+\rfoot{Page \thepage}
+
+\begin{document}
+
+\begin{center}
+    \LARGE \textbf{Lecture 6: Discrete RVs, Expectation and Problem Solving} \\
+    \large \textbf{Instructor: Dhaval Patel, PhD} \\
+    \small School of Engineering and Applied Science (SEAS), Ahmedabad University \\
+    \small Date: January 22, 2025
+\end{center}
+
+\hrule
+\vspace{0.5cm}
+
+\section{Outline}
+The lecture covers the following key topics:
+\begin{itemize}
+    \item Previous Lecture Recap: Random Variables (RVs) and Independent Events.
+    \item Definition and Examples of Discrete RVs.
+    \item Expectation of RVs: $\mu = E[X] = \sum x_i p_x(x_i)$.
+    \item Cumulative Density Function (CDF) and Probability Density Function (PDF).
+    \item Moments: Variance, Skewness, and Kurtosis.
+    \item \textbf{Types of Discrete RVs:} Bernoulli, Binomial, Geometric, and Poisson.
+\end{itemize}
+
+\section{Random Variables (RV) Concept}
+\subsection{Definition}
+A random variable $X$ on a sample space $\Omega$ is a function $X: \Omega \to \mathbb{R}$ that assigns a real number $X(\omega)$ to each sample point $\omega \in \Omega$. 
+
+\subsection{Discrete Random Variables}
+An RV is \textbf{discrete} if it takes values in a range that is finite or countably infinite.
+\begin{itemize}
+    \item \textbf{Probability Mass Function (PMF):} For a discrete RV $X$, the function $P_X(x_k) = P(X = x_k)$ is the PMF.
+    \item \textbf{Summation Property:} The sum of all probabilities in a PMF must equal 1: $\sum_{k=1}^{\infty} P_X(x_k) = 1$.
+\end{itemize}
+
+\section{Examples and Problem Solving}
+\subsection{Tossing 3 Fair Coins}
+Let $Y$ be the number of heads appearing.
+\begin{itemize}
+    \item $P(Y=0) = P\{(t,t,t)\} = 1/8$.
+    \item $P(Y=1) = P\{(t,t,h), (t,h,t), (h,t,t)\} = 3/8$.
+    \item $P(Y=2) = P\{(t,h,h), (h,t,h), (h,h,t)\} = 3/8$.
+    \item $P(Y=3) = P\{(h,h,h)\} = 1/8$.
+\end{itemize}
+
+\subsection{Bayes' Theorem Recap}
+The Posteriori probability is calculated as:
+\[ Pr(B_i|A) = \frac{Pr(A|B_i)Pr(B_i)}{\sum_{j=1}^{n} Pr(A|B_j)Pr(B_j)} \]
+
+\section{Types of Discrete Random Variables}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Distribution} & \textbf{PMF Form} & \textbf{Context/Example} \\ \hline
+\textbf{Bernoulli} & $P(X=1)=p, P(X=0)=1-p$ & Single trial (Success/Failure). \\ \hline
+\textbf{Binomial} & $p(i) = \binom{n}{i} p^i (1-p)^{n-i}$ & $i$ successes in $n$ independent trials. \\ \hline
+\textbf{Geometric} & $P(X=n) = (1-p)^{n-1} p$ & Number of trials until first success. \\ \hline
+\textbf{Poisson} & $p(i) = e^{-\lambda} \frac{\lambda^i}{i!}$ & Number of rare events in a unit. \\ \hline
+\end{tabular}
+\end{table}
+
+\subsection{Geometric RV Details}
+An experiment is performed until a success occurs. $X$ denotes the number of trials required. 
+\textbf{Example:} Selecting balls from an urn with $N$ white and $M$ black balls (with replacement) until a black ball is drawn. $p = M/(M+N)$.
+
+\subsection{Poisson RV Details}
+Used for "rare events". It can approximate a Binomial RV $B(n,p)$ when $n$ is large and $p$ is small such that $np$ is moderate.
+\textbf{Examples:} Misprints on a page, customers entering a post office, or wrong phone numbers dialed.
+
+\section{Independence}
+Two events $A$ and $B$ are independent if $Pr(A|B) = Pr(A)$ and $Pr(B|A) = Pr(B)$. This implies $Pr(A,B) = Pr(A)Pr(B)$.
+
+\end{document}
