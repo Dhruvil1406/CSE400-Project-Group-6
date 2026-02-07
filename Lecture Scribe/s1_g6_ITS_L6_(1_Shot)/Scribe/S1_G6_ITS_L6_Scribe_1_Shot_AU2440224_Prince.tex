@@ -1,0 +1,80 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{enumitem}
+\usepackage{tcolorbox}
+
+\title{CSE400: Fundamentals of Probability in Computing \\ \large Lecture 6: Discrete RVs, Expectation and Problem Solving}
+\author{Dhaval Patel, PhD}
+\date{January 22, 2025}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction to Random Variables (RVs)}
+[cite_start]A \textbf{random variable X} on a sample space $\Omega$ is a function $X: \Omega \to \mathbb{R}$ that assigns a real number $X(\omega)$ to each sample point $\omega \in \Omega$[cite: 48].
+\begin{itemize}
+    [cite_start]\item \textbf{Discrete RVs:} Take values in a range that is finite or countably infinite[cite: 49].
+    [cite_start]\item \textbf{Distribution Visualization:} Can be represented as a bar diagram where the x-axis shows values and the height shows $Pr[X=a]$[cite: 104, 105, 106].
+\end{itemize}
+
+\section{Probability Mass Function (PMF)}
+[cite_start]A random variable is discrete if it can take on at most a countable number of values[cite: 204].
+\begin{itemize}
+    [cite_start]\item \textbf{Definition:} The function $P_X(x_k) = P(X = x_k)$ for $k = 1, 2, 3, \dots$ is the PMF of X[cite: 221, 222].
+    [cite_start]\item \textbf{Property:} The sum of all probabilities must equal 1: $\sum_{k=1}^{\infty} P_X(x_k) = 1$[cite: 233].
+\end{itemize}
+
+\section{Bayes' Theorem Recap}
+\begin{tcolorbox}
+\[ Pr(B_i|A) = \frac{Pr(A|B_i)Pr(B_i)}{\sum_{i=1}^n Pr(A|B_i)Pr(B_i)} \]
+\end{tcolorbox}
+\begin{itemize}
+    [cite_start]\item \textbf{A priori probability:} $Pr(B_i)$ - formed from presupposed models[cite: 291].
+    [cite_start]\item \textbf{Posteriori probability:} $Pr(B_i|A)$ - calculated after observing event A[cite: 292].
+\end{itemize}
+
+\section{Independence}
+\begin{itemize}
+    [cite_start]\item \textbf{Two Events:} A and B are independent if $Pr(A|B) = Pr(A)$ and $Pr(B|A) = Pr(B)$, implying $Pr(A,B) = Pr(A)Pr(B)$[cite: 448].
+    [cite_start]\item \textbf{Three Events:} A, B, and C are mutually independent if[cite: 460]:
+    \begin{itemize}
+        [cite_start]\item $Pr(A,B) = Pr(A)Pr(B)$, $Pr(B,C) = Pr(B)Pr(C)$, $Pr(A,C) = Pr(A)Pr(C)$[cite: 462, 463].
+        [cite_start]\item $Pr(A,B,C) = Pr(A)Pr(B)Pr(C)$[cite: 463].
+    \end{itemize}
+\end{itemize}
+
+\section{Types of Discrete Random Variables}
+
+\subsection{Bernoulli Random Variable}
+[cite_start]Models an experiment with only two outcomes: Success (1) or Failure (0)[cite: 535, 544].
+\begin{itemize}
+    [cite_start]\item \textbf{PMF:} $P_X(1) = p$ and $P_X(0) = 1-p$, where $p \in (0,1)$[cite: 556, 557].
+    [cite_start]\item \textbf{Examples:} Single coin toss, email spam classification[cite: 572, 574].
+\end{itemize}
+
+\subsection{Binomial Random Variable $B(n,p)$}
+[cite_start]Models the number of successes in $n$ independent trials, each with success probability $p$[cite: 597, 599].
+\begin{itemize}
+    [cite_start]\item \textbf{PMF:} $p(i) = \binom{n}{i} p^i (1-p)^{n-i}$ for $i = 0, 1, \dots, n$[cite: 612].
+    [cite_start]\item \textbf{Examples:} Correct answers on a test, number of defective items in a sample[cite: 626, 627].
+\end{itemize}
+
+\subsection{Geometric Random Variable}
+[cite_start]Models the number of independent trials required until the first success occurs[cite: 644, 645].
+\begin{itemize}
+    [cite_start]\item \textbf{PMF:} $P_X(X=n) = (1-p)^{n-1} \times p$ for $n=1, 2, \dots$[cite: 659].
+    [cite_start]\item \textbf{Examples:} Tosses until first head, attempts until first sale[cite: 669, 670].
+\end{itemize}
+
+\subsection{Poisson Random Variable}
+[cite_start]A discrete RV with parameter $\lambda > 0$[cite: 695].
+\begin{itemize}
+    [cite_start]\item \textbf{PMF:} $p(i) = P\{X=i\} = e^{-\lambda} \frac{\lambda^i}{i!}$ for $i = 0, 1, 2, \dots$[cite: 702, 703].
+    [cite_start]\item \textbf{Approximation:} Used for $B(n,p)$ when $n$ is large and $p$ is small such that $n \times p$ is moderate[cite: 725, 726].
+    [cite_start]\item \textbf{Examples:} Misprints on a page, customers entering a post office daily[cite: 740, 744].
+\end{itemize}
+
+\end{document}
