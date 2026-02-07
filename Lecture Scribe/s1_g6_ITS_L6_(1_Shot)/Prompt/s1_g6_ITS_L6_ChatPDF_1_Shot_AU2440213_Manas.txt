@@ -1,0 +1,3 @@
+Here is the prompt used to generate the scribe:
+
+Hi, think of yourself as a professional scribe generator. Create a scribe as a LaTeX code of this file "L6_S1_A". It is a file of a lecture that I had attended. The file is "L6_S1_A.pdf", make it so that I can also use it as my reference in my exams. It should be precise and accurate. Don't change the content in the file. Keep the content accurate. Follow the lecture's structure and scope. Remember, don't change the content and don't add the content from the reference file and add yourself. Take the file "group_6_ITS_project_scribe (1).pdf" as the reference for the intended scribe's format. Make it possible so that it can be directly converted to LaTeX. For now just give me the LaTeX code for this file.
