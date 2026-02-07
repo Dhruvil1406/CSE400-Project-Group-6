@@ -1,3 +1,5 @@
+Prompt:
+
 Generate a Lecture Scribe as chat from the given PPT "L6_S1_A" using the structure from the PDF "Example_Scribe". Lecture scribe is to be created for entire ppt of all given pages. 
 
 Follow the below two sets of instructions properly to generate the Lecture Scribe : 
