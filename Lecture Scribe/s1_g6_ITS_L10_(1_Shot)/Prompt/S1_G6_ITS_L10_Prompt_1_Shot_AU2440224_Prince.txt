@@ -4,4 +4,5 @@ Hello, please work as a scribe generator for me. I need you to generate a scribe
 It is very important that you strictly adhere to the original content of the file. Do not modify, omit, reinterpret, or add any new material. The structure, sequence, scope, and technical details must remain exactly as presented in the lecture.
 Use the file "group_6_ITS_project_scribe (1).pdf" only as a formatting reference to match the intended scribe style and layout. Do not incorporate any content from that reference file into the new scribe.
 The final output should be valid LaTeX code that can be compiled directly without modification.
+
 For now, provide only the LaTeX source code corresponding to the file "L10_S1."
