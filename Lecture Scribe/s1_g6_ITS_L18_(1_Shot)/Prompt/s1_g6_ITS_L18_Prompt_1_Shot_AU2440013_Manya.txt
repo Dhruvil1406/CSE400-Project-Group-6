@@ -1,5 +1,3 @@
-Prompt :
-
 Generate a Lecture Scribe for exam reference from the given PPT "L18" using the structure from the PDF "Example_Scribe".
 Follow the below two sets of instructions properly to generate the Lecture Scribe : 
 Instructions : 1) The lecture scribe is to be generated as per the structure given in Example_Scribe 2) Use the content from L18 PPT only and do not add new content
