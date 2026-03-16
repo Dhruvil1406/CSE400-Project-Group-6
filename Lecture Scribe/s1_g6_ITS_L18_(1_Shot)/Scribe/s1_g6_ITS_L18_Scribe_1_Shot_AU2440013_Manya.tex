@@ -1,0 +1,243 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{booktabs}
+\usepackage{hyperref}
+
+% --- Custom Header Information ---
+\title{
+
+    \Large \textbf{School of Engineering and Applied Science} \\
+
+    \vspace{0.5cm}
+
+    \large \textbf{Lecture Scribe}: Lecture 18 (CSE 400) \\
+
+    \vspace{0.2cm}
+
+    \normalsize \textbf{Name:} Manya Chudasama\\
+
+    \vspace{0.2cm}
+
+    \normalsize \textbf{Enrollment No:} AU2440013
+
+}
+
+\date{} 
+
+\begin{document}
+
+\maketitle
+\section*{1) List of Topics Covered}
+\begin{enumerate}
+    \item \textbf{Marginal PMF}
+    \begin{itemize}
+        \item Definition and Notation
+        \item Calculation from a Joint PMF Table
+    \end{itemize}
+    \item \textbf{Correlation}
+    \begin{itemize}
+        \item Definition and Mathematical Expectation
+    \end{itemize}
+    \item \textbf{Covariance}
+    \begin{itemize}
+        \item Definition and Interpretation
+        \item Algebraic Form and Properties
+    \end{itemize}
+    \item \textbf{Pearson’s Correlation Coefficient}
+    \begin{itemize}
+        \item Definition and Range
+    \end{itemize}
+    \item \textbf{Jointly Gaussian Random Variables}
+    \begin{itemize}
+        \item Definition and Properties
+        \item Real-life Applications (Signal Processing, Climate Systems)
+    \end{itemize}
+\end{enumerate}
+
+\vspace{0.3cm}
+
+\section*{2) Explanation of Topics Covered}
+
+\begin{enumerate}
+    \item \textbf{Marginal PMF}
+    
+    When dealing with two or more random variables, we often start with a \textbf{Joint Probability Mass Function (PMF)}. The Marginal PMF allows us to isolate the probability distribution of a single random variable (e.g., $X$) while ignoring the specific values of the other variable ($Y$). This is achieved by summing the joint probabilities over all possible values of the variable we wish to exclude.
+
+    
+
+    \item \textbf{Correlation} 
+    
+    Correlation is a measure of the linear relationship between two random variables. In the context of probability, it is defined as the expected value of the product of the two variables, $E[XY]$. It helps in understanding if the variables move together in some capacity.
+
+    \item \textbf{Covariance} 
+    
+    Covariance is a more specific measure of how much two random variables change together. It specifically looks at the product of the deviations of the variables from their respective means. 
+    \begin{itemize}
+        \item \textbf{Positive Covariance:} Indicates that the variables tend to show similar behavior (both above or both below their means).
+        \item \textbf{Negative Covariance:} Indicates an inverse relationship.
+        \item \textbf{Zero Covariance:} Indicates no linear relationship.
+    \end{itemize}
+
+    \item \textbf{Pearson’s Correlation Coefficient} 
+    
+    While covariance tells us the direction of the relationship, its magnitude depends on the units of the variables. Pearson’s Coefficient ($\rho$) normalizes covariance by the product of the standard deviations, resulting in a dimension-less value between -1 and 1. This allows for a standardized comparison of the strength of linear relationships.
+
+    
+
+    \item \textbf{Jointly Gaussian Random Variables} 
+    
+    A pair of random variables $(X, Y)$ is ``Jointly Gaussian'' if their joint density follows a bivariate Gaussian distribution. This model is foundational in engineering and science because many natural processes (like noise in communications or atmospheric changes) are effectively modeled by Gaussian distributions due to the Central Limit Theorem.
+\end{enumerate}
+
+\vspace{0.3 cm}
+
+\section*{3) List of Definitions and Theorems} 
+
+\paragraph{Definition: Marginal PMF} \leavevmode \\
+For discrete random variables $X$ and $Y$ with joint PMF $p_{X,Y}(x,y)$, the marginal PMFs are:
+\begin{itemize}
+    \item $p_X(x) = \sum_y p_{X,Y}(x,y)$
+    \item $p_Y(y) = \sum_x p_{X,Y}(x,y)$
+\end{itemize}
+
+\vspace{0.1 cm}
+
+\paragraph{Definition: Correlation} \leavevmode \\
+The correlation of two random variables $X$ and $Y$ is defined as:
+\[ R_{XY} = E[XY] \]
+For discrete variables: $E[XY] = \sum_x \sum_y xy \cdot p_{X,Y}(x,y)$
+
+\vspace{0.1 cm}
+
+\paragraph{Definition: Covariance} \leavevmode \\
+The covariance of $X$ and $Y$ is defined as:
+\[ Cov(X,Y) = E[(X - \mu_X)(Y - \mu_Y)] \]
+where $\mu_X = E[X]$ and $\mu_Y = E[Y]$.
+
+\vspace{0.1 cm}
+
+\paragraph{Theorem: Algebraic Form of Covariance} \leavevmode \\
+\textbf{Statement:} $Cov(X,Y) = E[XY] - E[X]E[Y]$ \\
+\textbf{Proof:}
+\begin{enumerate}
+    \item Start with definition: $Cov(X,Y) = E[(X - E[X])(Y - E[Y])]$
+    \item Expand the product: $Cov(X,Y) = E[XY - X \cdot E[Y] - E[X] \cdot Y + E[X]E[Y]]$
+    \item Apply linearity of expectation: $Cov(X,Y) = E[XY] - E[X]E[Y] - E[X]E[Y] + E[X]E[Y]$
+    \item Simplify: $Cov(X,Y) = E[XY] - E[X]E[Y]$
+\end{enumerate}
+
+\vspace{0.1 cm}
+
+\paragraph{Definition: Pearson’s Correlation Coefficient} \leavevmode \\
+The correlation coefficient $\rho_{X,Y}$ is:
+\[ \rho_{X,Y} = \frac{Cov(X,Y)}{\sigma_X \sigma_Y} \]
+where $\sigma_X$ and $\sigma_Y$ are the standard deviations of $X$ and $Y$.
+
+\vspace{0.3cm}
+
+\section*{4) Important Examples}
+
+\paragraph{Example 1: Calculating Marginal PMF} \leavevmode \\
+\textbf{Question:} Given the following Joint PMF table, find the marginal PMFs for $X$ and $Y$.
+\begin{table}[h!]
+\centering
+\begin{tabular}{@{}llll@{}}
+\toprule
+$X \downarrow / Y \rightarrow$ & 1 & 2 & 3 \\ \midrule
+\textbf{1} & 0.1 & 0.1 & 0.2 \\
+\textbf{2} & 0.05 & 0.15 & 0.1 \\
+\textbf{3} & 0.1 & 0.1 & 0.1 \\ \bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Solution:}
+\begin{itemize}
+    \item \textbf{To find $p_X(x)$:} Sum across the rows.
+    \begin{itemize}
+        \item $p_X(1) = 0.1 + 0.1 + 0.2 = 0.4$
+        \item $p_X(2) = 0.05 + 0.15 + 0.1 = 0.3$
+        \item $p_X(3) = 0.1 + 0.1 + 0.1 = 0.3$
+    \end{itemize}
+    \item \textbf{To find $p_Y(y)$:} Sum down the columns.
+    \begin{itemize}
+        \item $p_Y(1) = 0.1 + 0.05 + 0.1 = 0.25$
+        \item $p_Y(2) = 0.1 + 0.15 + 0.1 = 0.35$
+        \item $p_Y(3) = 0.2 + 0.1 + 0.1 = 0.4$
+    \end{itemize}
+\end{itemize}
+
+\paragraph{Example 2: Covariance Calculation} \leavevmode \\
+\textbf{Question:} Let $X$ and $Y$ have joint PMF: $p_{X,Y}(0,0)=0.2, p_{X,Y}(1,1)=0.5, p_{X,Y}(2,2)=0.3$. Find $Cov(X,Y)$.
+
+\vspace{0.5cm}
+\textbf{Solution:}
+\begin{enumerate}
+    \item \textbf{Find Marginal PMFs:}
+    \begin{itemize}
+        \item $p_X(0)=0.2, p_X(1)=0.5, p_X(2)=0.3$
+        \item $p_Y(0)=0.2, p_Y(1)=0.5, p_Y(2)=0.3$
+    \end{itemize}
+    \item \textbf{Calculate $E[X]$ and $E[Y]$:}
+    \begin{itemize}
+        \item $E[X] = (0 \times 0.2) + (1 \times 0.5) + (2 \times 0.3) = 1.1$
+        \item $E[Y] = 1.1$ (since distribution is the same)
+    \end{itemize}
+    \item \textbf{Calculate $E[XY]$:}
+    \begin{itemize}
+        \item $E[XY] = (0 \cdot 0 \cdot 0.2) + (1 \cdot 1 \cdot 0.5) + (2 \cdot 2 \cdot 0.3) = 0 + 0.5 + 1.2 = 1.7$
+    \end{itemize}
+    \item \textbf{Calculate Covariance:}
+    \begin{itemize}
+        \item $Cov(X,Y) = E[XY] - E[X]E[Y] = 1.7 - (1.1 \times 1.1) = 1.7 - 1.21 = 0.49$
+    \end{itemize}
+\end{enumerate}
+
+
+\vspace{0.1 cm}
+
+\paragraph{Example 3: Correlation Coefficient} \leavevmode \\
+\textbf{Question:} If $Cov(X,Y) = 0.49$, $Var(X) = 0.49$, and $Var(Y) = 0.49$, find the Pearson's Coefficient $\rho$.
+
+\textbf{Solution:}
+\begin{enumerate}
+    \item \textbf{Find Standard Deviations:}
+    \begin{itemize}
+        \item $\sigma_X = \sqrt{Var(X)} = \sqrt{0.49} = 0.7$
+        \item $\sigma_Y = \sqrt{Var(Y)} = \sqrt{0.49} = 0.7$
+    \end{itemize}
+    \item \textbf{Apply Formula:}
+    \begin{itemize}
+        \item $\rho = \frac{Cov(X,Y)}{\sigma_X \sigma_Y} = \frac{0.49}{0.7 \times 0.7} = \frac{0.49}{0.49} = 1$
+    \end{itemize}
+\end{enumerate}
+\textit{Interpretation: $X$ and $Y$ have a perfect positive linear relationship.}
+
+\newpage
+
+\section*{5) List of Important Formulas}
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.8}
+\setlength{\tabcolsep}{12pt}
+\begin{tabular}{ll}
+\toprule
+\textbf{Formula / Concept} & \textbf{Result} \\
+\midrule
+\textbf{Marginal PMF (X)} & $p_X(x) = \sum_y p_{X,Y}(x,y)$ \\
+\textbf{Marginal PMF (Y)} & $p_Y(y) = \sum_x p_{X,Y}(x,y)$ \\
+\textbf{Expectation of $g(X,Y)$} & $E[g(X,Y)] = \sum_x \sum_y g(x,y) p_{X,Y}(x,y)$ \\
+\textbf{Correlation} & $E[XY] = \sum_x \sum_y xy \cdot p_{X,Y}(x,y)$ \\
+\textbf{Covariance} & $Cov(X,Y) = E[XY] - E[X]E[Y]$ \\
+\textbf{Variance of Sum} & $Var(X+Y) = Var(X) + Var(Y) + 2Cov(X,Y)$ \\
+\textbf{Correlation Coefficient} & $\rho = \frac{Cov(X,Y)}{\sigma_X \sigma_Y}$ \\
+\textbf{Jointly Gaussian Property} & If $X$ and $Y$ are independent, $Cov(X,Y) = 0$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+
+\end{document}
