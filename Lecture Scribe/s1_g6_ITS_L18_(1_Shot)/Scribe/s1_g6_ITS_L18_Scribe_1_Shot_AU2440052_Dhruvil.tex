@@ -1,0 +1,226 @@
+\documentclass[11pt]{article}
+
+% ===================== PACKAGES =====================
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{xcolor}
+
+\setlist[itemize]{label=\textbullet}
+
+% ===================== HEADER =====================
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{CSE 400}
+\lhead{Lecture 18 Notes}
+\rfoot{\thepage}
+
+% ===================== DOCUMENT =====================
+\begin{document}
+
+\begin{center}
+    \Large \textbf{CSE 400: Fundamentals of Probability in Computing} \\
+    \large Lecture 18: Marginal PMF, Correlation, Covariance, Joint Gaussian RVs \\
+    \normalsize March 12, 2026
+\end{center}
+
+\vspace{0.5cm}
+
+% ==========================================================
+\section{Marginal PMF}
+
+\subsection{Definition}
+The marginal PMF of a random variable is obtained by summing the joint PMF over all possible values of the other variable.
+
+\[
+P_X(x) = \sum_y P_{X,Y}(x,y), \quad
+P_Y(y) = \sum_x P_{X,Y}(x,y)
+\]
+
+\subsection{From Joint PMF Table}
+To compute marginal PMF:
+\begin{itemize}
+    \item Sum across rows to get $P_X(x)$
+    \item Sum across columns to get $P_Y(y)$
+\end{itemize}
+
+\subsection{Key Idea}
+Marginalization removes dependence on the other variable.
+
+% ==========================================================
+\section{Correlation}
+
+\subsection{Definition}
+Correlation is measured using the product moment:
+
+\[
+R_{XY} = \mathbb{E}[XY]
+\]
+
+For continuous variables:
+\[
+\mathbb{E}[XY] = \int\int xy f_{X,Y}(x,y)\,dx\,dy
+\]
+
+\subsection{Interpretation}
+\begin{itemize}
+    \item Measures average product of $X$ and $Y$
+    \item Depends on scale of variables
+    \item Computed about origin (not mean)
+\end{itemize}
+
+\subsection{Limitation}
+\begin{itemize}
+    \item Mixes mean, spread, and dependence
+    \item Not a clean measure of dependence
+\end{itemize}
+
+\textbf{Special Case:}
+\[
+R_{XY} = 0 \Rightarrow \text{Orthogonal about origin}
+\]
+
+% ==========================================================
+\section{Covariance}
+
+\subsection{Definition}
+Covariance measures dependence after removing means:
+
+\[
+\text{Cov}(X,Y) = \mathbb{E}[(X - \mu_X)(Y - \mu_Y)]
+\]
+
+\subsection{Equivalent Form}
+\[
+\text{Cov}(X,Y) = \mathbb{E}[XY] - \mathbb{E}[X]\mathbb{E}[Y]
+\]
+
+\subsection{Interpretation}
+\begin{itemize}
+    \item Positive $\Rightarrow$ variables move together
+    \item Negative $\Rightarrow$ variables move oppositely
+    \item Zero $\Rightarrow$ no linear relationship (uncorrelated)
+\end{itemize}
+
+\subsection{Properties}
+\begin{enumerate}
+    \item \textbf{Symmetry:}
+    \[
+    \text{Cov}(X,Y) = \text{Cov}(Y,X)
+    \]
+
+    \item \textbf{Variance as Special Case:}
+    \[
+    \text{Cov}(X,X) = \text{Var}(X)
+    \]
+
+    \item \textbf{Linearity:}
+    \[
+    \text{Cov}(aX + b, Y) = a \cdot \text{Cov}(X,Y)
+    \]
+
+    \item \textbf{Independence:}
+    \[
+    X \perp Y \Rightarrow \text{Cov}(X,Y) = 0
+    \]
+    (Converse is not always true)
+\end{enumerate}
+
+% ==========================================================
+\section{Pearson Correlation Coefficient}
+
+\subsection{Definition}
+\[
+\rho_{XY} = \frac{\text{Cov}(X,Y)}{\sigma_X \sigma_Y}
+\]
+
+\subsection{Properties}
+\begin{itemize}
+    \item Unit-free
+    \item Range: $-1 \leq \rho \leq 1$
+    \item Measures strength of linear relationship
+\end{itemize}
+
+% ==========================================================
+\section{Joint Gaussian Random Variables}
+
+\subsection{Definition}
+A pair $(X,Y)$ is jointly Gaussian if:
+\begin{itemize}
+    \item Joint distribution is bivariate normal
+    \item Marginals are Gaussian
+\end{itemize}
+
+\subsection{PDF Form}
+\[
+f_{X,Y}(x,y) =
+\frac{1}{2\pi \sigma_X \sigma_Y \sqrt{1-\rho^2}}
+\exp\left(
+-\frac{1}{2(1-\rho^2)}
+\left[
+\frac{(x-\mu_X)^2}{\sigma_X^2}
++
+\frac{(y-\mu_Y)^2}{\sigma_Y^2}
+-
+\frac{2\rho(x-\mu_X)(y-\mu_Y)}{\sigma_X \sigma_Y}
+\right]
+\right)
+\]
+
+\subsection{Interpretation}
+\begin{itemize}
+    \item $\mu_X, \mu_Y$ control center
+    \item $\sigma_X, \sigma_Y$ control spread
+    \item $\rho$ controls dependence
+\end{itemize}
+
+\subsection{Applications}
+\begin{itemize}
+    \item Signal processing
+    \item Communication systems
+    \item Modeling noisy measurements
+\end{itemize}
+
+% ==========================================================
+\section{Examples (Conceptual)}
+
+\subsection{Covariance Computation}
+\begin{itemize}
+    \item Compute $\mathbb{E}[X], \mathbb{E}[Y], \mathbb{E}[XY]$
+    \item Use:
+    \[
+    \text{Cov}(X,Y) = \mathbb{E}[XY] - \mathbb{E}[X]\mathbb{E}[Y]
+    \]
+\end{itemize}
+
+\subsection{Joint PDF Example}
+\begin{itemize}
+    \item Integrate over support
+    \item Find expectations using double integrals
+\end{itemize}
+
+% ==========================================================
+\section{Exam Summary (Important)}
+
+\begin{itemize}
+    \item \textbf{Marginal PMF:} Sum out the other variable
+    \item \textbf{Correlation:} $E[XY]$ (raw, not centered)
+    \item \textbf{Covariance:} Measures linear dependence
+    \item \textbf{Key Formula:}
+    \[
+    \text{Cov}(X,Y) = E[XY] - E[X]E[Y]
+    \]
+    \item \textbf{Independence $\Rightarrow$ Zero Covariance}
+    \item \textbf{Pearson Coefficient:}
+    \[
+    \rho = \frac{\text{Cov}(X,Y)}{\sigma_X \sigma_Y}
+    \]
+    \item \textbf{Joint Gaussian:}
+    \begin{itemize}
+        \item Fully defined by mean, variance, correlation
+        \item Most important continuous model
+    \end{itemize}
+\end{itemize}
+
+\end{document}
