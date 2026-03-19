@@ -1,0 +1,3 @@
+I need to create a LaTeX document based on the content of the PDF file “L18.pdf.” The document should include all definitions, notations, proofs, codes, and derivations present in the PDF. Additionally, it should contain a comprehensive summary designed to help students effectively revise and retain the material for exams.
+
+I have also provided a sample scribe titled “s1_g6_ITS_L6_Scribe_1_Shot_AU2440052_Prince.pdf” for reference. The LaTeX document you generate should follow the structure and formatting style demonstrated in this example. Ensure that only the wording of this instruction is modified—do not alter the actual requirements or content described.
