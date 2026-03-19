@@ -1,0 +1,89 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+
+\begin{document}
+
+\noindent
+\textbf{School of Engineering and Applied Science (SEAS), Ahmedabad University} \\
+\textbf{CSE 400: Fundamentals of Probability in Computing} \\
+\textbf{Lecture 18 Scribe: Marginal PMF, Correlation, Covariance, Joint Gaussian Random Variables} \\
+\textbf{Instructor:} Dhaval Patel, PhD [cite: 3] \\
+\textbf{Date:} March 12, 2026 [cite: 8] \\
+\vspace{1em}
+\hrule
+\vspace{1.5em}
+
+\section{Marginal PMF}
+For discrete random variables $X$ and $Y$, the joint PMF is defined as $p_{XY}(x,y)=P(X=x,Y=y)$[cite: 73, 74]. The marginal PMFs are obtained by summing the joint PMF over all possible values of the other variable[cite: 75, 78].
+
+\subsection{Definitions}
+\begin{itemize}
+    \item Marginal PMF of $X$: $p_{X}(x)=\sum_{y}p_{XY}(x,y)$ [cite: 76]
+    \item Marginal PMF of $Y$: $p_{Y}(y)=\sum_{x}p_{XY}(x,y)$ [cite: 76]
+\end{itemize}
+When working with a Joint PMF Table, the row sums give $p_{X}(x)$, and the column sums give $p_{Y}(y)$[cite: 85]. 
+
+\section{Correlation}
+Correlation is a basic way to measure joint behavior through the product moment[cite: 134]. 
+\begin{itemize}
+    \item In the continuous case, it is defined as: $$R_{XY}=\int_{-\infty}^{\infty}\int_{-\infty}^{\infty}xy~f_{XY}(x,y)dx~dy$$ [cite: 137]
+    \item It represents the average value of the product $XY$ ($R_{XY}=E[XY]$)[cite: 136, 138].
+    \item It depends on the scale of $X$ and $Y$ and mixes mean values, spread, and dependence[cite: 144, 146, 147, 148, 149].
+\end{itemize}
+
+\section{Covariance}
+To remove the effect of the means and measure centered dependence, we center the variables to find the covariance[cite: 154]. 
+
+\subsection{Definition and Interpretation}
+Covariance is defined as:
+$$Cov(X,Y)=E[(X-\mu_{X})(Y-\mu_{Y})]$$ [cite: 162]
+where $\mu_{X}=E[X]$ and $\mu_{Y}=E[Y]$[cite: 163].
+
+Covariance tells us the direction of joint linear variation between $X$ and $Y$[cite: 179].
+\begin{itemize}
+    \item \textbf{Positive Covariance ($Cov(X,Y)>0$):} Deviations tend to have the same sign[cite: 172, 175].
+    \item \textbf{Negative Covariance ($Cov(X,Y)<0$):} One tends to increase when the other decreases[cite: 173, 176].
+    \item \textbf{Zero Covariance ($Cov(X,Y)=0$):} No linear co-variation trend[cite: 174, 177].
+\end{itemize}
+
+\subsection{Algebraic Form and Properties}
+The algebraic formula for covariance is:
+$$Cov(X,Y)=E[XY]-E[X]E[Y]$$ [cite: 229]
+
+Key properties include[cite: 240, 241, 243, 254, 267]:
+\begin{enumerate}
+    \item \textbf{Symmetry:} $Cov(X,Y)=Cov(Y,X)$ [cite: 242]
+    \item \textbf{Variance as a Special Case:} $Cov(X,X)=Var(X)$ [cite: 244]
+    \item \textbf{Linearity:} $Cov(aX+b,cY+d)=ac~Cov(X,Y)$ [cite: 255]
+    \item \textbf{Independence:} $X\perp Y\Rightarrow Cov(X,Y)=0$[cite: 268]. Zero covariance means uncorrelated, but it does not strictly imply independence[cite: 269].
+\end{enumerate}
+
+\section{Pearson's Correlation Coefficient}
+The magnitude of covariance depends on the units of the variables[cite: 180]. The Pearson correlation coefficient ($\rho_{XY}$) is the normalized version of covariance that measures the strength and direction of the linear relationship[cite: 386, 387].
+
+\subsection{Formula and Constraints}
+$$\rho_{XY}=\frac{Cov(X,Y)}{\sqrt{Var(X)Var(Y)}}=\frac{Cov(X,Y)}{\sigma_{X}\sigma_{Y}}$$ [cite: 385]
+\begin{itemize}
+    \item It is always between -1 and 1 ($-1\le\rho_{XY}\le1$)[cite: 355, 398].
+    \item It is unit-free[cite: 388].
+    \item $\rho_{XY}>0$ indicates a positive linear trend, $\rho_{XY}<0$ indicates a negative linear trend, and $\rho_{XY}=0$ indicates no linear correlation[cite: 399, 400]. Even if $\rho_{XY}=0$, a non-linear relationship may still exist[cite: 377].
+\end{itemize}
+
+\section{Jointly Gaussian Random Variables}
+A pair ($X$, $Y$) is jointly Gaussian if its joint density has the bivariate Gaussian form and both marginal distributions are Gaussian ($X\sim N(\mu_{X},\sigma_{X}^{2})$ and $Y\sim N(\mu_{Y},\sigma_{Y}^{2})$)[cite: 569, 570].
+
+\subsection{Algebraic Form}
+For two variables $X$ and $Y$, the Joint Gaussian PDF is[cite: 591]:
+$$f_{X,Y}(x,y)=\frac{1}{2\pi\sigma_{X}\sigma_{Y}\sqrt{1-\rho^{2}}}\exp\left(-\frac{1}{2(1-\rho^{2})}\left[\left(\frac{x-\mu_{X}}{\sigma_{X}}\right)^{2}+\left(\frac{y-\mu_{Y}}{\sigma_{Y}}\right)^{2}-2\rho\left(\frac{x-\mu_{X}}{\sigma_{X}}\right)\left(\frac{y-\mu_{Y}}{\sigma_{Y}}\right)\right]\right)$$
+
+Where:
+\begin{itemize}
+    \item $\mu_{X}, \mu_{Y}$ = means [cite: 593]
+    \item $\sigma_{X}, \sigma_{Y}$ = standard deviations [cite: 594, 595]
+    \item $\rho$ = Pearson correlation coefficient [cite: 596, 597]
+\end{itemize}
+
+\end{document}
