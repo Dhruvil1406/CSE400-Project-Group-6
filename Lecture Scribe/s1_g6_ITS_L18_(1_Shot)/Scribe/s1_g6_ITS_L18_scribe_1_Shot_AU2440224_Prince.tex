@@ -1,0 +1,122 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb, amsfonts, amsthm}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{hyperref}
+
+\geometry{a4paper, margin=1in}
+
+\begin{document}
+
+% --- Header Section ---
+\begin{center}
+    \textbf{\Large CSE400: Fundamentals of Probability in Computing} \\
+    \textbf{Lecture 18: Marginal PMF, Correlation, Covariance, Joint Gaussian RVs} \\
+    \textit{Scribe for Lecture held on March 12, 2026} [cite: 8, 11] \\
+    \textit{Instructor: Dhaval Patel, PhD} 
+\end{center}
+
+\hrule
+\vspace{0.5cm}
+
+% --- Section 1: Marginal PMF ---
+\section{Marginal Probability Mass Function (PMF)}
+For discrete random variables $X$ and $Y$, the joint behavior is described by the joint PMF $p_{XY}(x,y) = P(X=x, Y=y)$[cite: 73, 74].
+
+\subsection{Definition}
+The marginal PMF of one variable is obtained by summing the joint PMF over all possible values of the other variable[cite: 77, 78]:
+\begin{itemize}
+    \item $p_{X}(x) = \sum_{y} p_{XY}(x,y)$ [cite: 75, 76]
+    \item $p_{Y}(y) = \sum_{x} p_{XY}(x,y)$ [cite: 76]
+\end{itemize}
+
+\subsection{Marginal PMF from a Joint PMF Table}
+In a tabular representation, the row sums provide $p_{X}(x)$, and the column sums provide $p_{Y}(y)$[cite: 85, 93].
+\begin{itemize}
+    \item $p_{X}(x_{i}) = \sum_{j} p_{ij}$ and $\sum_{i} p_{X}(x_{i}) = 1$ [cite: 96]
+    \item $p_{Y}(y_{j}) = \sum_{i} p_{ij}$ and $\sum_{j} p_{Y}(y_{j}) = 1$ [cite: 97, 98]
+\end{itemize}
+
+% --- Section 2: Correlation ---
+\section{Correlation}
+Correlation is a basic way to measure the joint behavior of two random variables through the "product moment"[cite: 133, 134].
+
+\subsection{Definition}
+In the continuous case, the raw correlation $R_{XY}$ is defined as[cite: 135, 136]:
+$$R_{XY} = E[XY] = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} xy f_{XY}(x,y) dx dy$$ [cite: 137]
+\begin{itemize}
+    \item It represents the average value of the product $XY$[cite: 138].
+    \item If $R_{XY} = 0$, the variables are considered orthogonal about the origin[cite: 150, 151].
+    \item \textbf{Limitation:} It depends on the scale of $X$ and $Y$ and mixes mean values, spread, and dependence[cite: 144, 146, 148, 149].
+\end{itemize}
+
+% --- Section 3: Covariance ---
+\section{Covariance}
+To create a cleaner measure of dependence, we center the variables by subtracting their means[cite: 152, 154].
+
+\subsection{Definition and Interpretation}
+Covariance measures how centered quantities vary together[cite: 165]:
+$$Cov(X,Y) = E[(X-\mu_{X})(Y-\mu_{Y})]$$ [cite: 162]
+where $\mu_{X} = E[X]$ and $\mu_{Y} = E[Y]$[cite: 163].
+\begin{itemize}
+    \item \textbf{Positive Covariance ($>0$):} Deviations tend to have the same sign (e.g., as study hours increase, GPA increases)[cite: 172, 175, 193].
+    \item \textbf{Negative Covariance ($<0$):} One variable increases while the other decreases (e.g., as TV time increases, GPA decreases)[cite: 173, 176, 194].
+    \item \textbf{Zero Covariance ($=0$):} No linear co-variation trend[cite: 174, 177].
+\end{itemize}
+
+\subsection{Algebraic Form and Properties}
+The computational formula for covariance is[cite: 216, 227]:
+$$Cov(X,Y) = E[XY] - E[X]E[Y]$$ [cite: 229]
+
+\textbf{Key Properties:}
+\begin{enumerate}
+    \item \textbf{Symmetry:} $Cov(X,Y) = Cov(Y,X)$[cite: 235].
+    \item \textbf{Variance as Special Case:} $Cov(X,X) = Var(X)$[cite: 244, 253].
+    \item \textbf{Linearity:} $Cov(aX+b, cY+d) = ac \ Cov(X,Y)$[cite: 255, 265].
+    \item \textbf{Independence:} $X \perp Y \Rightarrow Cov(X,Y) = 0$ (Independence implies zero covariance, but the reverse is not always true)[cite: 267, 268, 269].
+\end{enumerate}
+
+% --- Section 4: Pearson's Coefficient ---
+\section{Pearson's Correlation Coefficient ($\rho_{XY}$)}
+The Pearson coefficient is the normalized version of covariance[cite: 353, 386].
+
+\subsection{Definition}
+$$\rho_{XY} = \frac{Cov(X,Y)}{\sigma_{X}\sigma_{Y}} = \frac{Cov(X,Y)}{\sqrt{Var(X)Var(Y)}}$$ [cite: 355, 384, 392]
+\begin{itemize}
+    \item \textbf{Range:} Always between -1 and 1 ($-1 \le \rho_{XY} \le 1$)[cite: 354, 397].
+    \item \textbf{Unit-free:} It is independent of the units of $X$ and $Y$[cite: 356, 387].
+    \item \textbf{Strength:} Unlike covariance, it measures both the direction and the \textit{strength} of the linear relationship[cite: 350, 359, 393].
+\end{itemize}
+
+% --- Section 5: Jointly Gaussian RVs ---
+\section{Jointly Gaussian Random Variables}
+A pair $(X, Y)$ is jointly Gaussian if its joint density has a bivariate Gaussian form and the marginals are Gaussian[cite: 568, 576].
+
+\subsection{Joint PDF Form}
+For two variables $X$ and $Y$[cite: 589]:
+$$f_{X,Y}(x,y) = \frac{1}{2\pi\sigma_{X}\sigma_{Y}\sqrt{1-\rho^{2}}} \exp\left(-\frac{1}{2(1-\rho^{2})} \left[ \left(\frac{x-\mu_{X}}{\sigma_{X}}\right)^2 + \left(\frac{y-\mu_{Y}}{\sigma_{Y}}\right)^2 - 2\rho\left(\frac{x-\mu_{X}}{\sigma_{X}}\right)\left(\frac{y-\mu_{Y}}{\sigma_{Y}}\right) \right]\right)$$ [cite: 590, 606, 634]
+
+\subsection{Applications}
+\begin{itemize}
+    \item \textbf{Signal Processing \& Communication:} Natural model for continuous noisy measurements[cite: 580, 581, 582].
+    \item \textbf{Climate Modeling:} Used to study relationships like $CO_{2}$ concentration and temperature anomalies[cite: 604, 605, 615].
+\end{itemize}
+
+% --- Exam Revision Summary ---
+\section*{Summary for Exam Revision}
+\begin{table}[h!]
+\centering
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Concept} & \textbf{Key Formula / takeaway} \\ \hline
+Marginal PMF & Sum the joint PMF over the "other" variable. [cite: 78] \\ \hline
+Correlation ($R_{XY}$) & $E[XY]$. Measures raw joint behavior. [cite: 136] \\ \hline
+Covariance ($Cov$) & $E[XY] - E[X]E[Y]$. Measures linear direction. [cite: 227] \\ \hline
+Pearson's ($\rho$) & $\frac{Cov(X,Y)}{\sigma_X \sigma_Y}$. Measures direction AND strength (-1 to 1). [cite: 355] \\ \hline
+Independence & If independent, $Cov=0$ and $\rho=0$. [cite: 268, 558] \\ \hline
+Joint Gaussian & Marginals are Gaussian; defined by $\mu, \sigma, \rho$. [cite: 568, 649] \\ \hline
+\end{tabular}
+\end{table}
+
+\end{document}
