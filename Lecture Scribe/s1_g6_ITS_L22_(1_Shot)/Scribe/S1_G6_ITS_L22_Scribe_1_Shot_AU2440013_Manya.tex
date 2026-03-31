@@ -1,0 +1,191 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{booktabs}
+\usepackage{hyperref}
+
+% --- Custom Header Information ---
+\title{
+
+    \Large \textbf{School of Engineering and Applied Science} \\
+
+    \vspace{0.5cm}
+
+    \large \textbf{Lecture Scribe}: Lecture 22 (CSE 400) \\
+
+    \vspace{0.2cm}
+
+    \normalsize \textbf{Name:} Manya Chudasama\\
+
+    \vspace{0.2cm}
+
+    \normalsize \textbf{Enrollment No:} AU2440013
+
+}
+
+\date{} 
+
+\begin{document}
+
+\maketitle
+\section*{1) List of Topics Covered}
+\begin{enumerate}
+    \item \textbf{Markov's Inequality Recap}
+    \begin{itemize}
+        \item Application to income distribution problems.
+    \end{itemize}
+    \item \textbf{Chebyshev's Inequality Key Idea}
+    \begin{itemize}
+        \item Utilizing mean and variance to control deviations.
+    \end{itemize}
+    \item \textbf{Intuition and Geometry}
+    \begin{itemize}
+        \item Understanding tail regions and large deviations from the mean.
+    \end{itemize}
+    \item \textbf{Proof of Chebyshev's Inequality}
+    \begin{itemize}
+        \item Step-by-step derivation using Markov's Inequality.
+    \end{itemize}
+    \item \textbf{Comparative Analysis}
+    \begin{itemize}
+        \item Chebyshev vs. Markov bounds in a coin-flipping scenario.
+    \end{itemize}
+    \item \textbf{Real-Life Applications}
+    \begin{itemize}
+        \item Estimating student score distributions and grade cutoffs.
+    \end{itemize}
+\end{enumerate}
+
+\vspace{0.3cm}
+
+\section*{2) Explanation of Topics Covered}
+
+\begin{enumerate}
+    \item \textbf{Markov's Inequality}
+    
+    This inequality provides an upper bound on the probability that a non-negative random variable $X$ exceeds a certain value $a$. It is primarily a ``right-tail'' bound and requires only the expected value ($E[X]$).
+
+    \item \textbf{Chebyshev's Inequality}
+    
+    Unlike Markov's, Chebyshev's inequality uses both the mean ($\mu$) and the variance ($Var(X)$) of a distribution. It controls the probability that a random variable deviates from its mean by more than a specific distance $a$.
+
+    \item \textbf{Intuition}
+    
+    Geometrically, Chebyshev's inequality bounds the area in the ``tail regions'' far from the mean. As the spread (variance) around the mean decreases, the probability of finding values far from the center also decreases.
+
+    
+
+    \item \textbf{Key Insight}
+    
+    One major advantage of Chebyshev's inequality is that its bound often decreases as the sample size $n$ increases (as seen in the coin-flip example), whereas Markov's bound may remain constant. This makes it a significantly tighter and more useful tool for large datasets.
+\end{enumerate}
+
+\vspace{0.3 cm}
+
+\section*{3) List of Definitions and Theorems} 
+
+\begin{enumerate}
+    \item \textbf{Definition: Markov's Inequality} \leavevmode \\
+    Let $X$ be a non-negative random variable ($X \ge 0$) with a known expected value $E[X]$. For any $a > 0$:
+    \[ P(X \ge a) \le \frac{E[X]}{a} \]
+
+    \vspace{0.1 cm}
+
+    \item \textbf{Theorem: Chebyshev's Inequality} \leavevmode \\
+    Let $X$ be a random variable with mean $\mu$ and variance $Var(X)$. For any $a > 0$, the probability that $X$ deviates from $\mu$ by at least $a$ is:
+    \[ P(|X - \mu| \ge a) \le \frac{Var(X)}{a^2} \]
+
+    \vspace{0.1 cm}
+
+    \item \textbf{Proof of Chebyshev's Inequality} \leavevmode \\
+    The proof relies on applying Markov's Inequality to the squared deviation of $X$ from its mean:
+    \begin{enumerate}
+        \item[1.] \textbf{Identity}: Note that the event $|X - \mu| \ge a$ is equivalent to the event $(X - \mu)^2 \ge a^2$.
+        \item[2.] \textbf{Application}: Define a new non-negative random variable $Y = (X - \mu)^2$. Apply Markov's Inequality to $Y$ with threshold $a^2$:
+            \[ P(Y \ge a^2) \le \frac{E[Y]}{a^2} \]
+        \item[3.] \textbf{Substitution}: Since $E[Y] = E[(X - \mu)^2] = Var(X)$, we substitute this into the inequality:
+            \[ P((X - \mu)^2 \ge a^2) \le \frac{Var(X)}{a^2} \]
+        \item[4.] \textbf{Result}: Thus, $P(|X - \mu| \ge a) \le \frac{Var(X)}{a^2}$.
+    \end{enumerate}
+\end{enumerate}
+
+\vspace{0.3cm}
+
+\section*{4) Important Examples}
+
+\paragraph{Example 1: Income Distribution (Markov)} \leavevmode \\
+\textbf{Question:} In a city, the average annual income is \$40,000. Use Markov's inequality to find an upper bound on the probability that a randomly selected person earns \$120,000 or more.
+
+\vspace{0.2cm}
+\noindent \textbf{Solution:} 
+\begin{itemize}
+    \item Define $X \ge 0$ as income, with $E[X] = 40,000$.
+    \item Apply $P(X \ge a) \le E[X]/a$ with $a = 120,000$.
+    \item $P(X \ge 120,000) \le \frac{40,000}{120,000} = \frac{1}{3}$.
+\end{itemize}
+\textit{Note: Markov cannot bound the probability of earning less than \$10,000 because it only handles the right tail.}
+
+\vspace{0.6cm}
+
+\paragraph{Example 2: Coin Flipping (Chebyshev vs. Markov)} \leavevmode \\
+\textbf{Question:} Flip a fair coin $n$ times. Let $X$ be the number of heads. Bound $P(X \ge \frac{3n}{4})$.
+
+\vspace{0.2cm}
+\noindent \textbf{Solution:} 
+\begin{itemize}
+    \item Setup: $X \sim Binomial(n, 1/2)$, $\mu = n/2$, $Var(X) = n/4$.
+    \item Using Chebyshev: $P(X \ge \frac{3n}{4}) = \frac{1}{2} P(|X - \frac{n}{2}| \ge \frac{n}{4})$.
+    \item Apply bound: $\le \frac{1}{2} \cdot \frac{n/4}{(n/4)^2} = \frac{2}{n}$.
+\end{itemize}
+\textit{Insight: The bound $\frac{2}{n}$ decreases as $n$ increases, which is much better than the constant bound provided by Markov's inequality.}
+
+\vspace{0.6cm}
+
+\paragraph{Example 3: Exam Scores (Real-Life Application)} \leavevmode \\
+\textbf{Question:} Mean exam score is 70 marks and standard deviation is 10. What fraction of students score below 40 or above 100?
+
+\vspace{0.2cm}
+\noindent \textbf{Solution:} 
+\begin{itemize}
+    \item Identify deviation: The scores 40 and 100 both deviate from the mean (70) by $a = 30$.
+    \item Apply Chebyshev: $P(|X - 70| \ge 30) \le \frac{10^2}{30^2} = \frac{100}{900} = \frac{1}{9}$.
+\end{itemize}
+At most 1/9 of students are far from the mean.
+
+\vspace{0.6cm}
+
+\paragraph{Example 4: Exam Grades with Variance (Exercise 5.8b)} \leavevmode \\
+\textbf{Question:} The average grade is 70\% and the standard deviation is 5\%. The ``A'' cutoff is 90\%. Use Chebyshev's inequality to find an upper bound on the fraction of ``A'' students.
+
+\vspace{0.2cm}
+\noindent \textbf{Solution:} 
+\begin{itemize}
+    \item Identify parameters: $\mu = 70$, $\sigma = 5 \Rightarrow Var(X) = 25$.
+    \item Identify deviation: An ``A'' student ($X \ge 90$) deviates from the mean by at least 20 ($|X - 70| \ge 20$).
+    \item Apply bound: $P(X \ge 90) \le P(|X - 70| \ge 20) \le \frac{25}{20^2}$.
+    \item Calculation: $\frac{25}{400} = \frac{1}{16} = 0.0625$ or 6.25\%.
+\end{itemize}
+
+\vspace{0.3 cm}
+
+\section*{5) List of Important Formulas}
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.8}
+\setlength{\tabcolsep}{12pt}
+\begin{tabular}{ll}
+\toprule
+\textbf{Formula / Concept} & \textbf{Result} \\
+\midrule
+\textbf{Markov's Inequality} (Requires $X \ge 0$) & $P(X \ge a) \le \frac{E[X]}{a}$ \\
+\textbf{Chebyshev's Inequality} (Uses mean and variance) & $P(|X - \mu| \ge a) \le \frac{Var(X)}{a^2}$ \\
+\textbf{Variance Calculation} (Fundamental to Chebyshev proof) & $Var(X) = E[(X - \mu)^2]$ \\
+\textbf{Binomial Mean} (Used in coin-flip example) & $\mu = np$ \\
+\textbf{Binomial Variance} (Used in coin-flip example) & $Var(X) = npq$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\end{document}
