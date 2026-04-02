@@ -1,1 +1,119 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{booktabs}
+\usepackage{hyperref}
 
+% --- Custom Header Information ---
+\title{
+    \Large \textbf{School of Engineering and Applied Science} \\
+    \vspace{0.5cm}
+    \large \textbf{Lecture Scribe}: Lecture 22 (CSE 400) \\
+    \vspace{0.2cm}
+    \normalsize \textbf{Name:} Manya Chudasama\\
+    \vspace{0.2cm}
+    \normalsize \textbf{Enrollment No:} AU2440013
+}
+
+\date{} 
+\begin{document}
+\maketitle
+\section*{1) List of Topics Covered}
+\begin{enumerate}
+    \item \textbf{Chebyshev’s Inequality}
+    \begin{itemize}
+        \item Intuition and Key Idea
+        \item Proof using Markov’s Inequality
+    \end{itemize}
+    \item \textbf{Running Example: Coin Flipping}
+    \begin{itemize}
+        \item Setup and Binomial Distribution application
+        \item Comparison with Markov’s Bound
+    \end{itemize}
+    \item \textbf{Real-Life Applications}
+    \begin{itemize}
+        \item Exam Scores Scenario
+        \item Network Latency SLA
+    \end{itemize}
+\end{enumerate}
+
+\section*{2) Explanation of Topics Covered}
+\begin{enumerate}
+    \item \textbf{Chebyshev’s Inequality} \\
+    Chebyshev’s Inequality is a powerful tool in probability that uses both the mean ($\mu$) and variance ($Var(X)$) to control the deviation of a random variable from its mean. It helps bound the probability of ``tail regions''—values that are far from the average. Unlike Markov's inequality, which only requires the mean and applies only to non-negative variables, Chebyshev's bound often provides a tighter estimate because it incorporates the spread (variance) of the data.
+
+    \item \textbf{Intuition} \\
+    Geometrically, it limits how much area can exist in the tails of a distribution at a distance `$a$' from the mean. As the sample size or certain parameters increase, these bounds typically decrease, showing that values are more likely to stay near the mean. 
+\end{enumerate}
+
+\section*{3) List of Definitions and Theorems} 
+\begin{enumerate}
+    \item \textbf{Definition: Markov’s Inequality} \\
+    For a non-negative random variable $X$ and any $a > 0$:
+    \[ P(X \ge a) \le \frac{E[X]}{a} \]
+
+    \item \textbf{Theorem Statement: Chebyshev’s Inequality} \\
+    For a random variable $X$ with mean $\mu$ and variance $\sigma^2$, for any $a > 0$:
+    \[ P(|X - \mu| \ge a) \le \frac{Var(X)}{a^2} \]
+
+    \item \textbf{Detailed Step-by-Step Proof}
+    \begin{enumerate}
+        \item[1.] Consider the event $|X - \mu| \ge a$.
+        \item[2.] Square both sides to relate it to variance: $(X - \mu)^2 \ge a^2$.
+        \item[3.] Apply \textbf{Markov’s Inequality} to the non-negative random variable $(X - \mu)^2$:
+            \[ P((X - \mu)^2 \ge a^2) \le \frac{E[(X - \mu)^2]}{a^2} \]
+        \item[4.] Substitute the definition of variance $Var(X) = E[(X - \mu)^2]$:
+            \[ P(|X - \mu| \ge a) \le \frac{Var(X)}{a^2} \]
+    \end{enumerate}
+\end{enumerate}
+
+\section*{4) Important Examples}
+
+\subsection*{Example 1: Exam Grades with Variance} 
+\vspace{0.1 cm}
+\textbf{Problem} : The average grade is 70\% and the standard deviation is 5\%. The ``A'' cutoff is 90\%. Apply Chebyshev’s inequality to obtain a tighter upper bound on the fraction of ``A'' students.
+
+\vspace{0.2cm}
+\noindent \textbf{Solution:} 
+\begin{itemize}
+    \item \textbf{Step 1:} Identify mean and variance. \\ $\mu = 70$, $\sigma = 5 \Rightarrow \sigma^2 = 25$.
+    \item \textbf{Step 2:} Define the event. \\ An ``A'' student has $X \ge 90$. Note that $X \ge 90 \Rightarrow |X - 70| \ge 20$. We use the two-sided Chebyshev bound to cover this one-sided event.
+    \item \textbf{Step 3:} State Chebyshev with $a = 20$. \\ $P(|X - \mu| \ge a) \le \frac{\sigma^2}{a^2}$.
+    \item \textbf{Step 4:} Substitute values. \\ $P(X \ge 90) \le P(|X - 70| \ge 20) \le \frac{25}{20^2} = \frac{25}{400}$.
+    \item \textbf{Result:} $P(X \ge 90) \le 0.0625$ (or $\frac{1}{16}$). This is much tighter than the bound provided by Markov’s inequality (0.778).
+\end{itemize}
+
+\vspace{0.4cm}
+
+\subsection*{Example 2: Network Latency SLA} 
+
+\textbf{Problem :} A network route has average latency $E[X] = 50\text{ ms}$ and variance $Var(X) = 16\text{ ms}^2$. Bound the probability that a packet's latency falls \textbf{outside} the range $[30\text{ ms}, 70\text{ ms}]$.
+
+\vspace{0.2cm}
+\noindent \textbf{Solution:} 
+\begin{itemize}
+    \item \textbf{Step 1:} Identify given parameters. \\ $\mu = 50$, $\sigma^2 = 16$.
+    \item \textbf{Step 2:} Rewrite failure condition as absolute deviation. \\ $X \notin [30, 70] \iff |X - 50| \ge 20$.
+    \item \textbf{Step 3:} Apply Chebyshev with $a = 20$. \\ $P(|X - 50| \ge 20) \le \frac{16}{20^2} = \frac{16}{400}$.
+    \item \textbf{Result:} $P(X \text{ is outside range}) \le 0.04$.
+\end{itemize}
+
+\section*{5) List of Important Formulas}
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.5}
+\setlength{\tabcolsep}{12pt}
+\begin{tabular}{ll}
+\toprule
+\textbf{Formula / Concept} & \textbf{Result} \\
+\midrule
+\textbf{Markov’s Inequality} & $P(X \ge a) \le \frac{E[X]}{a}$ \\
+\textbf{Chebyshev’s Inequality} & $P(|X - \mu| \ge a) \le \frac{Var(X)}{a^2}$ \\
+\textbf{Binomial Mean (Fair Coin)} & $\mu = \frac{n}{2}$ \\
+\textbf{Binomial Variance (Fair Coin)} & $Var(X) = \frac{n}{4}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\end{document}
