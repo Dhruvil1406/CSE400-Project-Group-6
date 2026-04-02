@@ -1,0 +1,33 @@
+Create a complete lecture scribe using only the provided material.
+
+Follow the lecture strictly from first to last slide. Do not skip anything.
+
+Include every element exactly as given: all definitions, statements, theorems, proofs, derivations, equations, examples, figures, cases of real life application and any other content. Write all steps fully.
+
+Do not modify, summarize, interpret, or add anything.
+
+Keep the following structure EXACTLY the same and do not change it:
+
+Example Lecture Scribe (structure only, do not copy content):
+
+Topic Title
+
+Overview
+Brief statement describing what the lecture covers.
+
+Definitions and Notation
+Formal definitions and symbols introduced in the lecture.
+
+Main Results
+Statements of theorems, propositions, or key results, section-wise.
+Include figures, graphs, tables, or diagrams ONLY if they explicitly appear in the lecture.
+If a figure is referenced in the lecture, include a formal textual description exactly as stated.
+
+Derivations / Proofs
+Step-by-step derivations or proofs exactly as presented.
+
+Worked Examples
+Example problems solved in class with all intermediate steps.
+
+Summary
+Concise recap strictly limited to formulas, results, and definitions already stated.
