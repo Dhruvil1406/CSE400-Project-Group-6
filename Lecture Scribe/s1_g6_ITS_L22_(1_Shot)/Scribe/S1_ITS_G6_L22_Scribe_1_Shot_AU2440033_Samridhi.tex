@@ -1,0 +1,387 @@
+\documentclass[12pt]{article}
+\usepackage{graphicx} % Required for inserting images
+
+
+% ===================== PACKAGES =====================
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{xcolor} 
+
+% ===================== HEADER & FOOTER =====================
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{CSE 400: Fundamentals of Probability in Computing}
+\rhead{Lecture - 22 scribe }
+\cfoot{\thepage}
+
+% ===================== CUSTOM COMMANDS =====================
+\newcommand{\solution}{
+    \vspace{0.5cm}
+    \noindent\textbf{\textcolor{blue}{Solution:}}
+    \vspace{0.2cm}
+    
+    % --- STUDENT: TYPE YOUR SOLUTION BELOW THIS LINE ---
+    
+    \vfill 
+}
+
+
+% ===================== TITLE =====================
+\title{
+    \normalsize School of Engineering and Applied Science (SEAS), Ahmedabad University \\
+    \vspace{0.2cm}
+    \textbf{CSE 400: Fundamentals of Probability in Computing}\\
+    \Large {Chebyshev’s Inequality, Chernoff Bounds, and Jensen’s Inequality}
+}
+\author{} 
+\date{}
+
+\begin{document}
+\maketitle
+
+\vspace{-2cm}
+\begin{center}
+    \begin{tabular}{ll}
+        \textbf{Name:} & {Samridhi Mehrotra \hspace{2.5in}} \\ [1.5ex]
+        \textbf{Enrollment No:} & {AU2440033 \hspace{2.5in}} \\ [1.5ex]
+        \textbf{Email:} & {samridhi.m@ahduni.edu.in \hspace{2.1in}} \\ [1.5ex]
+        
+    \end{tabular}
+\end{center}
+
+\hrule
+\vspace{0.5cm}
+
+
+
+\item \title{\textbf{Chebyshev’s Inequality, Chernoff Bounds, and Jensen’s Inequality}
+
+\author{}
+\date{}
+
+
+\date{}
+
+
+\begin{document}
+
+\maketitle
+
+\section*{Overview}
+The lecture covers probabilistic tail bounds including Markov, Chebyshev, and Chernoff bounds, followed by Jensen’s Inequality and its connection to convexity and expectations.
+
+\section*{Definitions and Notation}
+
+\textbf{Markov Inequality:}
+\[
+P(X \ge a) \le \frac{\mathbb{E}[X]}{a}
+\]
+
+\textbf{Chebyshev Inequality:}
+\[
+P(|X - \mu| \ge a) \le \frac{\mathrm{Var}(X)}{a^2}
+\]
+
+\textbf{Random Variable (Binomial):}
+\[
+X \sim \text{Binomial}(n, \tfrac{1}{2}), \quad \mu = \frac{n}{2}, \quad \mathrm{Var}(X) = \frac{n}{4}
+\]
+
+\textbf{Convex Function Definition:}
+
+A function $g(x)$ is convex on interval $S$ if for any $x_1, x_2 \in S$ and $\alpha \in [0,1]$:
+\[
+g(\alpha x_1 + (1-\alpha)x_2) \le \alpha g(x_1) + (1-\alpha)g(x_2)
+\]
+
+\textbf{Expectation:}
+\[
+\mathbb{E}[X] = \sum p_X(x_i)\, x_i
+\]
+
+\textbf{Expectation of function:}
+\[
+\mathbb{E}[g(X)] = \sum p_X(x_i)\, g(x_i)
+\]
+
+\section*{Main Results}
+
+\subsection*{Chebyshev’s Inequality}
+
+Uses mean + variance. Controls deviation from mean.
+\[
+P(|X - \mu| \ge a) \le \frac{\mathrm{Var}(X)}{a^2}
+\]
+
+\textbf{Proof Idea:}
+
+Apply Markov on $(X - \mu)^2$:
+\[
+P(|X - \mu| \ge a) = P((X - \mu)^2 \ge a^2)
+\le \frac{\mathbb{E}[(X - \mu)^2]}{a^2}
+= \frac{\mathrm{Var}(X)}{a^2}
+\]
+
+\subsection*{Running Example (Binomial)}
+
+\[
+P\left(X \ge \frac{3}{4}n\right)
+= P\left(|X - \tfrac{n}{2}| \ge \tfrac{n}{4}\right)
+\le \frac{n}{(n/4)^2}
+= \frac{4}{n}
+\]
+
+\textbf{Key Insight:} Bound decreases as $n$ increases.
+
+\subsection*{Real-Life Example}
+
+Mean $= 70$, Std deviation $= 10$
+
+\[
+P(|X - 70| \ge 30) \le \frac{10^2}{30^2} = \frac{1}{9}
+\]
+
+At most $\frac{1}{9}$ students are far from mean.
+
+\subsection*{Solved Example 1}
+
+\[
+\mu = 70,\ \sigma = 5 \Rightarrow \sigma^2 = 25
+\]
+
+\[
+X \ge 90 \Rightarrow |X - 70| \ge 20
+\]
+
+\[
+P(X \ge 90) \le P(|X - 70| \ge 20) \le \frac{25}{400} = \frac{1}{16} = 0.0625
+\]
+
+Result: Much tighter than Markov.
+
+\subsection*{Solved Example 2 (Network Latency)}
+
+\[
+\mu = 50,\ \sigma^2 = 16
+\]
+
+\[
+P(|X - 50| \ge 20) \le \frac{16}{400} = \frac{1}{25}
+\]
+
+Result: At most $4\%$ packets outside range.
+
+\section*{Chernoff Bound: Key Idea}
+
+\textbf{Progression:}
+\[
+\text{Markov} \rightarrow X,\quad
+\text{Chebyshev} \rightarrow (X - \mu)^2,\quad
+\text{Chernoff} \rightarrow e^{tX}
+\]
+
+\textbf{Key Insight:}
+Exponential grows very fast. Tail events get amplified.
+
+\subsection*{Core Trick}
+
+\[
+P(X \ge a) = P(e^{tX} \ge e^{ta})
+\]
+
+Apply Markov:
+\[
+P(e^{tX} \ge e^{ta}) \le \frac{\mathbb{E}[e^{tX}]}{e^{ta}}
+\]
+
+\subsection*{Final Chernoff Bound}
+
+\[
+P(X \ge a) \le \min_{t>0} \left\{ \frac{\mathbb{E}[e^{tX}]}{e^{ta}} \right\}
+\]
+
+\textbf{Key Insight:}
+Choose best $t$ for tightest bound. Exponential decay instead of polynomial.
+
+\subsection*{Lower Tail Chernoff}
+
+\[
+P(X \le a) \le \min_{t<0} \left\{ \frac{\mathbb{E}[e^{tX}]}{e^{ta}} \right\}
+\]
+
+\subsection*{Poisson Chernoff Bound}
+
+\[
+\mathbb{E}[e^{tX}] = \sum_{i=0}^{\infty} e^{ti} \frac{e^{-\lambda}\lambda^i}{i!}
+= e^{\lambda(e^t - 1)}
+\]
+
+\[
+P(X \ge a) \le \min_{t>0} e^{\lambda(e^t - 1) - ta}
+\]
+
+Minimized at:
+\[
+t = \ln\left(\frac{a}{\lambda}\right)
+\]
+
+Thus:
+\[
+P(X \ge a) \le e^{a - \lambda} \left(\frac{\lambda}{a}\right)^a
+\]
+
+\subsection*{Chernoff Example (Binomial Lower Tail)}
+
+\[
+X \sim \text{Binomial}(20, 0.5),\quad \mu = 10,\quad \delta = 1
+\]
+
+\[
+P(X \le 0) \le \exp\left(-\frac{\mu \delta^2}{2}\right)
+= e^{-5} \approx 0.0067
+\]
+
+\section*{Jensen’s Inequality}
+
+We know:
+\[
+\mathbb{E}[X^2] \ge (\mathbb{E}[X])^2
+\]
+
+General result:
+\[
+\mathbb{E}[X^a] \ge (\mathbb{E}[X])^a
+\]
+
+\subsection*{Convexity}
+
+\[
+g''(x) \ge 0
+\]
+
+\subsection*{From Convexity to Expectation}
+
+\[
+g\left(\sum \alpha_i x_i\right) \le \sum \alpha_i g(x_i)
+\]
+
+Interpretation: $\alpha_i$ act like probabilities.
+
+\[
+g(\mathbb{E}[X]) \le \mathbb{E}[g(X)]
+\]
+
+\subsection*{Jensen’s Theorem}
+
+If $g(x)$ is convex and $X \in S$:
+\[
+g(\mathbb{E}[X]) \le \mathbb{E}[g(X)]
+\]
+
+\subsection*{Jensen Simple Example}
+
+\[
+X = \{1,3\},\quad P=0.5
+\]
+
+\[
+\mathbb{E}[X] = 2
+\]
+
+\[
+g(\mathbb{E}[X]) = 2^2 = 4
+\]
+
+\[
+\mathbb{E}[g(X)] = 0.5(1^2) + 0.5(3^2) = 5
+\]
+
+Thus:
+\[
+g(\mathbb{E}[X]) \le \mathbb{E}[g(X)]
+\]
+
+\subsection*{Jensen Solved Example}
+
+\[
+X = \{2,4\},\quad \mathbb{E}[X] = 3
+\]
+
+\[
+g(\mathbb{E}[X]) = 9
+\]
+
+\[
+\mathbb{E}[g(X)] = 0.5(4) + 0.5(16) = 10
+\]
+
+\section*{Derivations / Proofs}
+
+\subsection*{Chebyshev Proof}
+
+\[
+P(|X - \mu| \ge a)
+= P((X - \mu)^2 \ge a^2)
+\le \frac{\mathbb{E}[(X - \mu)^2]}{a^2}
+= \frac{\mathrm{Var}(X)}{a^2}
+\]
+
+\subsection*{Chernoff Proof Structure}
+
+Transform:
+\[
+P(X \ge a) = P(e^{tX} \ge e^{ta})
+\]
+
+Apply Markov and minimize over $t$.
+
+\subsection*{Jensen Proof Idea}
+
+\[
+g\left(\sum \alpha_i x_i\right) \le \sum \alpha_i g(x_i)
+\]
+
+Replace weights with probabilities to obtain expectation form.
+
+\section*{Worked Examples}
+
+\begin{itemize}
+\item Exam Scores $\rightarrow \frac{1}{9}$ bound
+\item Grades variance $\rightarrow \frac{1}{16}$
+\item Network latency $\rightarrow \frac{1}{25}$
+\item Binomial Chernoff $\rightarrow e^{-5} \approx 0.0067$
+\item Jensen verification $\rightarrow 4 \le 5$
+\end{itemize}
+
+\section*{Summary}
+
+\textbf{Markov:}
+\[
+P(X \ge a) \le \frac{\mathbb{E}[X]}{a}
+\]
+
+\textbf{Chebyshev:}
+\[
+P(|X - \mu| \ge a) \le \frac{\mathrm{Var}(X)}{a^2}
+\]
+
+\textbf{Chernoff:}
+\[
+P(X \ge a) \le \min_{t>0} \frac{\mathbb{E}[e^{tX}]}{e^{ta}}
+\]
+
+\textbf{Jensen:}
+\[
+g(\mathbb{E}[X]) \le \mathbb{E}[g(X)]
+\]
+
+\textbf{Key Ideas:}
+\begin{itemize}
+\item Tail bounds improve from Markov $\rightarrow$ Chebyshev $\rightarrow$ Chernoff
+\item Exponential gives strongest bounds
+\item Convexity connects to expectation via Jensen
+\end{itemize}
+
+\end{document}
