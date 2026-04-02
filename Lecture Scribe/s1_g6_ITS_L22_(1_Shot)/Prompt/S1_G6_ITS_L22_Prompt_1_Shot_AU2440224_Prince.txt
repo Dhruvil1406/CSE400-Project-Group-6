@@ -1,0 +1,4 @@
+here is the prompt i have used:
+
+I would like to create a LaTeX document using the material from the file "L21_L22.pdf", beginning specifically from page 36, which covers Chebyshev's Inequality. The document should include all definitions, notations, proofs, derivations, and any code present in the source material. Additionally, it should provide a comprehensive summary designed to help students effectively review and retain the concepts for exams.
+I have also provided a sample scribe titled "s1_g6_ITS_L6_Scribe_1_Shot_AU2440052_Prince.pdf" for reference. The structure and formatting of the LaTeX document should closely follow the style demonstrated in this example.
