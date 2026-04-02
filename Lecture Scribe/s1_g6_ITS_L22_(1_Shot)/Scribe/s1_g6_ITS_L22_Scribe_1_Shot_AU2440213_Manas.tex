@@ -1,0 +1,58 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+
+\title{\textbf{School of Engineering and Applied Science (SEAS), Ahmedabad University} \\
+\vspace{0.3cm}
+\large CSE 400: Fundamentals of Probability in Computing \\
+Lecture 21 \& 22 Scribe}
+\author{Instructor: Dhaval Patel, PhD}
+\date{March 24, 2026}
+
+\begin{document}
+\maketitle
+
+\section{Chebyshev's Inequality ��}
+\begin{itemize}
+    \item \textbf{Core Concept:} It controls deviation from the mean by utilizing both mean and variance[cite: 139, 140, 141].
+    \item \textbf{Formula:} $P(|X-\mu|\ge a)\le\frac{Var(X)}{a^{2}}$[cite: 143].
+    \item \textbf{Proof Steps:} Apply Markov's inequality directly on $(X-\mu)^{2}$[cite: 165].
+    \item \textbf{Key Insight:} The bound decreases as the sample size $n$ increases, making it significantly tighter than Markov's constant bound[cite: 190].
+\end{itemize}
+
+\section{Chernoff Bound ��}
+\begin{itemize}
+    \item \textbf{Core Concept:} Uses the exponential transformation $e^{tX}$ to amplify large tail values for a stricter bound[cite: 403, 404, 405, 406].
+    \item \textbf{Upper Tail Formula:} $P(X\ge a)\le \min_{t>0}\{\frac{E[e^{tX}]}{e^{ta}}\}$[cite: 504].
+    \item \textbf{Lower Tail Formula:} $P(X\le a)\le \min_{t<0}\{e^{-ta}E[e^{tX}]\}$[cite: 713].
+    \item \textbf{Steps to Solve:}
+    \begin{enumerate}
+        \item Transform the base inequality using $e^{tX}$[cite: 496].
+        \item Apply Markov's inequality to the transformed variables[cite: 497].
+        \item Optimize the inequality by choosing the best $t$ parameter to achieve the tightest bound[cite: 513].
+    \end{enumerate}
+\end{itemize}
+
+\section{Jensen's Inequality ��}
+\begin{itemize}
+    \item \textbf{Convexity Rule:} A function $g(x)$ is convex if $g(\alpha x_{1}+(1-\alpha)x_{2})\le\alpha g(x_{1})+(1-\alpha)g(x_{2})$[cite: 757, 758].
+    \item \textbf{Formula:} For a convex function $g(x)$ defined on an interval, $g(E[X])\le E[g(X)]$[cite: 863, 864].
+    \item \textbf{Interpretation:} Averaging the variables first results in a smaller value, while applying the convex function first yields a larger value[cite: 873, 874].
+\end{itemize}
+
+\section{System Case Study: Server Crashing ��}
+\begin{itemize}
+    \item \textbf{Problem Statement:} Sudden, extreme traffic spikes cause server queues to overflow, resulting in system crashes and lost revenue[cite: 1092, 1093].
+    \item \textbf{Model Setup:} Define Demand as $X$ and Capacity as $C$. A system failure event occurs when $X \ge C$[cite: 1101, 1102].
+    \item \textbf{Steps to Scale Capacity:}
+    \begin{enumerate}
+        \item \textbf{Markov Bound:} If telemetry only provides the average load, the system requires a massive safety fallback capacity ($1,000,000$ requests)[cite: 1252].
+        \item \textbf{Chebyshev Bound:} Incorporating both average load and burstiness (variance) dramatically reduces the required capacity to $30,000$ requests[cite: 1252].
+        \item \textbf{Chernoff Bound:} Knowing the full probability distribution enables precise server node sizing at just $14,500$ requests[cite: 1252].
+    \end{enumerate}
+    \item \textbf{The Golden Rule:} Adding more statistical information yields tighter bounds, which directly lowers hardware costs[cite: 1254, 1255].
+\end{itemize}
+
+\end{document}
