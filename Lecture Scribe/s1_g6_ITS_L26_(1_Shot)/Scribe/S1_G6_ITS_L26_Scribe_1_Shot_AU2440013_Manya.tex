@@ -1,0 +1,155 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{booktabs}
+\usepackage{hyperref}
+
+% --- Custom Header Information ---
+\title{
+    \Large \textbf{School of Engineering and Applied Science} \\
+    \vspace{0.5cm}
+    \large \textbf{Lecture Scribe}: Lecture 26 (CSE 400) \\
+    \vspace{0.2cm}
+    \normalsize \textbf{Name:} Manya Chudasama\\
+    \vspace{0.2cm}
+    \normalsize \textbf{Enrollment No:} AU2440013
+}
+
+\date{} 
+\begin{document}
+\maketitle
+
+\section*{1) List of Topics Covered}
+\begin{enumerate}
+    \item \textbf{Basics of Stochastic Processes}
+    \begin{itemize}
+        \item Waveform Collections and Realizations
+        \item Process Characterization (First, Second, and Nth Order Density Functions)
+    \end{itemize}
+    \item \textbf{Statistical Moments}
+    \begin{itemize}
+        \item Mean Function (Ensemble Average)
+        \item Autocorrelation and Autocovariance Functions
+        \item Correlation Coefficient
+        \item Properties of Autocorrelation
+    \end{itemize}
+    \item \textbf{Stationary Stochastic Process}
+    \begin{itemize}
+        \item Strict Sense Stationary (SSS) Process
+        \item Wide Sense Stationary (WSS) Process
+    \end{itemize}
+    \item \textbf{Ergodic Process}
+    \begin{itemize}
+        \item Time Average of a Random Process
+        \item Mean Ergodicity and Autocorrelation Ergodicity
+    \end{itemize}
+\end{enumerate}
+
+\section*{2) Explanation of Topics Covered}
+\begin{enumerate}
+    \item \textbf{Basics of Stochastic Processes} \\
+    A Stochastic Process $X(\zeta, t)$ is a rule for assigning to every outcome $\zeta$ of a random experiment a function of time $X(\zeta, t)$. At a fixed time $t_k$, $X(\zeta, t_k)$ is a random variable. A single time function $x_i(t)$ corresponding to a specific outcome is called a realization or sample function. Characterization involves Nth-order joint probability density functions.
+
+    \item \textbf{Statistical Moments} \\
+    Since Nth-order PDFs are hard to find, we use moments. The mean function $\mu_X(t)$ is the expected value across the ensemble at time $t$. The autocorrelation $R_X(t_1, t_2)$ describes the dependence between values at two time instants. Autocovariance $C_X(t_1, t_2)$ removes the mean effect to look at the correlation of the fluctuations.
+
+    \item \textbf{Stationary Processes} \\
+    A process is stationary if its statistical properties are invariant to time shifts. SSS requires the joint PDF to remain the same regardless of time origin. WSS is a relaxed condition requiring only a constant mean and an autocorrelation that depends solely on the time difference $\tau = t_1 - t_2$.
+
+    \item \textbf{Ergodic Processes} \\
+    Ergodicity implies that "time averages" equal "ensemble averages." In many applications, we only have one realization of a signal. If the process is ergodic, we can calculate its statistics (mean, variance, etc.) by averaging a single sample over a long enough time interval.
+\end{enumerate}
+
+\section*{3) List of Definitions and Theorems} 
+\begin{enumerate}
+    \item \textbf{Definition: Mean Function} \\
+    The mean of a random process $X(t)$ is defined as the ensemble average:
+    \[ \mu_X(t) = E[X(t)] = \int_{-\infty}^{\infty} x f_{X(t)}(x) dx \]
+
+    \item \textbf{Definition: Autocorrelation Function} \\
+    The autocorrelation $R_X(t_1, t_2)$ of a random process $X(t)$ is:
+    \[ R_X(t_1, t_2) = E[X(t_1)X(t_2)] \]
+
+    \item \textbf{Definition: Wide Sense Stationarity (WSS)} \\
+    A process $X(t)$ is WSS if:
+    \begin{enumerate}
+        \item[1.] $E[X(t)] = \mu_X$ (Constant)
+        \item[2.] $E[X(t)X(t+\tau)] = R_X(\tau)$ (Depends only on time difference $\tau$)
+    \end{enumerate}
+
+    \item \textbf{Theorem: Symmetry of Autocorrelation} \\
+    For a WSS process, the autocorrelation function is an even function: $R_X(\tau) = R_X(-\tau)$.
+
+    \item \textbf{Detailed Step-by-Step Proof}
+    \begin{enumerate}
+        \item[1.] By definition of WSS: $R_X(\tau) = E[X(t)X(t+\tau)]$.
+        \item[2.] Let $t + \tau = t'$, then $t = t' - \tau$.
+        \item[3.] Substitute these into the expectation: $R_X(\tau) = E[X(t'-\tau)X(t')]$.
+        \item[4.] By commutativity of multiplication: $E[X(t')X(t'-\tau)]$.
+        \item[5.] Since the process is WSS, this expectation only depends on the difference between the time indices: $t' - (t'-\tau) = \tau$. However, looking at the indices $t'$ and $t'-\tau$, the shift is $-\tau$. 
+        \item[6.] Thus, $R_X(\tau) = R_X(-\tau)$.
+    \end{enumerate}
+\end{enumerate}
+
+\section*{4) Important Examples}
+
+\subsection*{Example 1: Sinusoid with Random Phase} 
+\vspace{0.1 cm}
+\textbf{Problem} : Consider the process $X(t) = A \cos(\omega_c t + \Theta)$, where $A$ and $\omega_c$ are constants and $\Theta \sim U[0, 2\pi]$. Determine if $X(t)$ is WSS.
+
+\vspace{0.2cm}
+\noindent \textbf{Solution:} 
+\begin{itemize}
+    \item \textbf{Step 1: Check the Mean.} \\
+    $\mu_X(t) = E[A \cos(\omega_c t + \Theta)] = \int_{0}^{2\pi} A \cos(\omega_c t + \theta) \frac{1}{2\pi} d\theta$. \\
+    The integral of a cosine over its full period is 0. So, $\mu_X(t) = 0$ (Constant).
+    \item \textbf{Step 2: Check Autocorrelation.} \\
+    $R_X(t, t+\tau) = E[A \cos(\omega_c t + \Theta) A \cos(\omega_c (t+\tau) + \Theta)]$.
+    \item \textbf{Step 3: Use Trigonometric Identity.} \\
+    $\cos A \cos B = \frac{1}{2}[\cos(A-B) + \cos(A+B)]$. \\
+    $R_X(t, t+\tau) = \frac{A^2}{2} E[\cos(\omega_c \tau) + \cos(2\omega_c t + \omega_c \tau + 2\Theta)]$.
+    \item \textbf{Step 4: Evaluate Expectation.} \\
+    The second term's expectation is 0 because it's a sinusoid over $4\pi$. \\
+    $R_X(\tau) = \frac{A^2}{2} \cos(\omega_c \tau)$.
+    \item \textbf{Result:} Since the mean is constant and $R_X$ depends only on $\tau$, the process is \textbf{WSS}.
+\end{itemize}
+
+\vspace{0.4cm}
+
+\subsection*{Example 2: Time Averaging for Mean Ergodicity} 
+
+\textbf{Problem :} For a specific realization $x(t) = A \cos(\omega_c t + \theta)$, find the time average $\bar{x}$.
+
+\vspace{0.2cm}
+\noindent \textbf{Solution:} 
+\begin{itemize}
+    \item \textbf{Step 1:} Apply the time average formula. \\
+    $\bar{x} = \lim_{T \to \infty} \frac{1}{2T} \int_{-T}^{T} A \cos(\omega_c t + \theta) dt$.
+    \item \textbf{Step 2:} Evaluate the integral. \\
+    $\bar{x} = \lim_{T \to \infty} \frac{A}{2T \omega_c} [\sin(\omega_c T + \theta) - \sin(-\omega_c T + \theta)]$.
+    \item \textbf{Step 3:} Limits. \\
+    As $T \to \infty$, the denominator $2T$ grows while the numerator is bounded between $-2A$ and $2A$.
+    \item \textbf{Result:} $\bar{x} = 0$. Since this equals the ensemble mean $E[X(t)] = 0$, the process is \textbf{mean-ergodic}.
+\end{itemize}
+\newpage
+\section*{5) List of Important Formulas}
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.5}
+\setlength{\tabcolsep}{12pt}
+\begin{tabular}{ll}
+\toprule
+\textbf{Formula / Concept} & \textbf{Result} \\
+\midrule
+\textbf{Mean Function} & $\mu_X(t) = E[X(t)]$ \\
+\textbf{Autocorrelation} & $R_X(t_1, t_2) = E[X(t_1)X(t_2)]$ \\
+\textbf{Autocovariance} & $C_X(t_1, t_2) = R_X(t_1, t_2) - \mu_X(t_1)\mu_X(t_2)$ \\
+\textbf{Correlation Coefficient} & $\rho_X(t_1, t_2) = \frac{C_X(t_1, t_2)}{\sqrt{C_X(t_1, t_1)C_X(t_2, t_2)}}$ \\
+\textbf{WSS Autocorrelation} & $R_X(\tau) = E[X(t)X(t+\tau)]$ \\
+\textbf{Time Average (Mean)} & $\bar{x} = \lim_{T \to \infty} \frac{1}{2T} \int_{-T}^{T} x(t) dt$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\end{document}
