@@ -1,0 +1,7 @@
+Prompt:
+
+I want to generate a latex file. The Latex file should have the following content from the pdfs "L26_Stochastic Processes_Part 1_SSS_WSS_Ergodic.pdf
+":  
+All the definations and notations, any proofs, codes and derivations in the pdf and it should have a detailed summary of the pdf to make the student recall everything for any exam.
+
+I have also attached a Scribe as an example named "s1_g6_ITS_L6_Scribe_1_Shot_AU2440052_Dhruvil.pdf". Your Latex file should follow the format given in this example.
