@@ -1,0 +1,101 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{hyperref}
+
+\title{\textbf{Lecture 26: Stochastic Processes Part 1} \\ \large Strict Sense Stationary (SSS), Wide Sense Stationary (WSS), and Ergodic Processes}
+\author{Professional Scribe}
+\date{April 14, 2026}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction to Stochastic Processes}
+A \textbf{stochastic process} $X(\zeta, t)$ is defined as an entire collection of waveforms or functions over time that are dependent on the outcome of a random experiment[cite: 27, 34]. 
+
+\subsection{Key Concepts}
+\begin{itemize}
+    \item \textbf{Realization:} A specific measured waveform from an experiment is called a realization of the process[cite: 103, 109].
+    \item \textbf{Random Variable (R.V.):} If the process is "frozen" at a specific time $t = t_1$, the output evaluates to a single random variable, denoted as $X(\zeta, t_1) = X(t_1)$[cite: 110, 111].
+    \item \textbf{Multiple Variables:} By evaluating the process at multiple time instances $(t_1, t_2, \dots, t_n)$, we acquire multiple dependent random variables[cite: 120].
+\end{itemize}
+
+\section{Process Characterization}
+Stochastic processes are characterized by their Probability Density Functions (PDF)[cite: 126, 131]:
+\begin{itemize}
+    \item \textbf{1st Order:} Describes the R.V. at a single time $t_1$: $f_{X_1}(x, t_1)$[cite: 132, 133].
+    \item \textbf{2nd Order:} Describes the joint probability across two times $t_1$ and $t_2$: $f_{X_1X_2}(x_1, x_2, t_1, t_2)$[cite: 141, 142].
+    \item \textbf{$n^{th}$ Order:} Provides a complete statistical description: $f_{X_1\dots X_n}(x_1, \dots, x_n, t_1, \dots, t_n)$[cite: 152, 153].
+\end{itemize}
+
+\section{Statistical Moments}
+
+\subsection{Mean Function}
+The mean is the expected value of the random variable at a given time $t$[cite: 160].
+\begin{equation}
+    \mu_X(t) = E[X(t)] = \int_{-\infty}^{\infty} x \cdot f_X(x, t) \, dx
+\end{equation}
+Generally, the mean changes as a function of time[cite: 172].
+
+\subsection{Autocorrelation Function}
+Measures the relationship between the process sampled at two different times $t_1$ and $t_2$[cite: 186].
+\begin{equation}
+    R_{XX}(t_1, t_2) = E[X(t_1)X^*(t_2)]
+\end{equation}
+\textbf{Properties:}
+\begin{itemize}
+    \item \textbf{Conjugate Symmetry:} $R_{XX}(t_1, t_2) = R_{XX}^*(t_2, t_1)$[cite: 210, 237].
+    \item \textbf{Positive Definiteness:} The function forms a positive definite matrix[cite: 241]. For any complex constants $a_i$:
+    $\sum_{i=1}^{n}\sum_{j=1}^{n} a_i a_j^* R_{XX}(t_i, t_j) \ge 0$[cite: 277].
+\end{itemize}
+
+\subsection{Autocovariance Function}
+Measures the relationship between the deviations of the process from its mean[cite: 253].
+\begin{equation}
+    C_{XX}(t_1, t_2) = E[(X(t_1) - \mu_X(t_1))(X^*(t_2) - \mu_X^*(t_2))]
+\end{equation}
+It is related to autocorrelation by: $C_{XX}(t_1, t_2) = R_{XX}(t_1, t_2) - \mu_X(t_1)\mu_X(t_2)$[cite: 655].
+
+\section{Stationary Stochastic Processes}
+
+\subsection{Strict Sense Stationary (SSS)}
+A process is SSS if its entire joint distribution is invariant under a time shift $\tau$[cite: 856].
+\begin{equation}
+    f_X(x_1, \dots, x_n; t_1, \dots, t_n) = f_X(x_1, \dots, x_n; t_1 + \tau, \dots, t_n + \tau)
+\end{equation}
+For an SSS process, the mean $\mu_X$ is constant and the autocorrelation $R_{XX}(t_1, t_2)$ depends only on the time difference $t_1 - t_2$[cite: 459, 478].
+
+\subsection{Wide Sense Stationary (WSS)}
+WSS is a weaker condition often used in practice[cite: 483]. A process is WSS if:
+\begin{enumerate}
+    \item \textbf{Constant Mean:} $E[X(t)] = \mu_X = \text{constant}$[cite: 492, 500].
+    \item \textbf{Lag-Dependent Autocorrelation:} $E[X(t_1)X^*(t_2)] = R_{XX}(\tau)$, where $\tau = t_1 - t_2$[cite: 501, 502].
+\end{enumerate}
+\textit{Note: SSS implies WSS, but WSS does not necessarily imply SSS unless the process is Gaussian[cite: 510, 523].}
+
+\section{Ergodic Process}
+A process is \textbf{ergodic} if its time averages are equal to its ensemble averages[cite: 680, 688].
+\begin{itemize}
+    \item \textbf{Time Average (Mean):} $\langle X(t) \rangle = \lim_{T \to \infty} \frac{1}{2T} \int_{-T}^{T} x(t) \, dt$[cite: 719, 725].
+    \item \textbf{Time-Average Autocorrelation:} $R_{XX}(\tau) = \lim_{T \to \infty} \frac{1}{2T} \int_{-T}^{T} x(t)x(t+\tau) \, dt$[cite: 727, 728].
+\end{itemize}
+In an ergodic process, a single realization can represent the entire process[cite: 708].
+
+\section{Summary of Mathematical Tools}
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Function} & \textbf{Formula} \\ \hline
+Mean Function & $\mu_X(t) = E[X(t)]$ [cite: 635] \\ \hline
+Autocorrelation & $R_{XX}(t_1, t_2) = E[X(t_1)X(t_2)]$ [cite: 646] \\ \hline
+Autocovariance & $C_{XX}(t_1, t_2) = R_{XX}(t_1, t_2) - \mu_X(t_1)\mu_X(t_2)$ [cite: 655] \\ \hline
+Cross-Correlation & $R_{XY}(t_1, t_2) = E[X(t_1)Y(t_2)]$ [cite: 666] \\ \hline
+\end{tabular}
+\end{table}
+
+\end{document}
